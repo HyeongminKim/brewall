@@ -200,7 +200,7 @@ if [ $? != 0 ]; then
     cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
     rm $debugPath/$version.csm 2> /dev/null
 elif [ "$1" != "safety_guard_override" ]; then
-    shasum -a 256 $0 > $debugPath/$version.csm
+    shasum -a 256 $0 > $debugPath/$version.csm 2> /dev/null
     diff ~/Library/Application\ Support/com.greengecko.brewall/$version.csm $debugPath/$version.csm > /dev/null 2>&1
     if [ $? == 0 ]; then
         echo "" > /dev/null 2>&1
@@ -209,13 +209,13 @@ elif [ "$1" != "safety_guard_override" ]; then
             echo -n "저장된 스크립트 체크섬: "
             cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
             echo -n "현재 스크립트 체크섬: "
-            cat $debugPath/$version.csm
+            cat $debugPath/$version.csm 2> /dev/null
             echo "스크립트 파일이 악의적 목적으로 변조되었을 가능성이 있어 중단되었습니다. "
         else
             echo -n "Saved script checksum: "
             cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
             echo -n "Current script checksum: "
-            cat $debugPath/$version.csm
+            cat $debugPath/$version.csm 2> /dev/null
             echo "Unauthorized edited script who changes by hacker. Aborting."
         fi
         endTime=$(date +%s)
