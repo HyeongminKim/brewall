@@ -1,65 +1,15 @@
 #!/bin/bash
 
-inited=true
 debugPath=~/Library/Logs/Homebrew
 update=false
 upgrade=false
 cleanup=false
 doctor=false
-version=1.1.2
-build=1A022
+version=1.1.3
+build=1A025
 elapsedTime=
 
-function printInit() {
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo '#################### 설치 가이드 ###################'
-        echo '해야할 것: 아래 명령어를 당신의 $SHELL_CONFIG_FILE 에 삽입하여 주십시오 ("#!>", "<!#" 제외). '
-        echo '메모: 이 명령어는 zsh에서 테스트 되었습니다. '
-        echo ''
-        echo '#!> echo 'alias brewall="$CUSTOMPATH/brewall.sh;softwareupdate -l;echo \"\a\""' >> $SHELL_CONFIG_FILE && source $SHELL_CONFIG_FILE; chmod 550 $CUSTOMPATH/brewall.sh; touch ~/Library/Application\ Support/com.greengecko.brewall.initializationed <!#'
-        echo ''
-        echo 'ex) echo 'alias brewall="~/.etc/brewall.sh;upgrade_oh_my_zsh;softwareupdate -l;echo \"\a\""' >> ~/.zshrc && source ~/.zshrc; chmod 550 ~/.etc/brewall.sh; touch ~/Library/Application\ Support/com.greengecko.brewall.initializationed'
-        echo ''
-        echo '경고: ">>" 에서 ">"로 수정하지 마십시오. 당신은 $SHELL_CONFIG_FILE의 내용을 영원히 잃게 됩니다. '
-        echo '      모든 사용자에게 쓰기 권한을 부여하지 마십시오.  (경로 변경 제외) '
-        echo '          그리고 당신의 사용자계정에는 읽기와 실행권한을 부여해야 합니다.  (추천 권한 모드: 550 또는 500)'
-        echo ''
-        echo '정보: 이 명령어는 당신의 $SHELL_CONFIG_FILE 에"brewall" 별칭을 설정합니다. '
-        echo '      이 "brewall" 별칭 설정이 완료되면 upgrade_oh_my_zsh 및 시스템 업데이트도 확인할 수 있습니다. '
-        echo '      그리고 이 스크립트는 Homebrew를 업데이트하며 로그를 ~/Library/Logs/Homebrew 에 저장할겁니다.'
-        echo '######################################################'
-    else
-        echo '#################### INSTALL GUIDE ###################'
-        echo 'TODO: INSERT this command to your $SHELL_CONFIG_FILE (except "#!>", "<!#"). '
-        echo 'NOTE: This command tested on zsh.'
-        echo ''
-        echo '#!> echo 'alias brewall="$CUSTOMPATH/brewall.sh;softwareupdate -l;echo \"\a\""' >> $SHELL_CONFIG_FILE && source $SHELL_CONFIG_FILE; chmod 550 $CUSTOMPATH/brewall.sh; mkdir ~/Library/Application\ Support/com.greengecko.brewall; touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed <!#'
-        echo ''
-        echo 'ex) echo 'alias brewall="~/.etc/brewall.sh;upgrade_oh_my_zsh;softwareupdate -l;echo \"\a\""' >> ~/.zshrc && source ~/.zshrc; chmod 550 ~/.etc/brewall.sh; mkdir ~/Library/Application\ Support/com.greengecko.brewall; touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed'
-        echo ''
-        echo 'WARN: Do not modify ">>" to ">". You will lost your $SHELL_CONFIG_FILE forever.'
-        echo '      Do not grant write permission all user account. (except path change) '
-        echo '          And you should grant your user account permission read and execute. (Recommend grant mode: 550 or 500)'
-        echo ''
-        echo 'INFO: This command will set alias "brewall" in your $SHELL_CONFIG_FILE'
-        echo '      When "brewall" command entered run this script, upgrade oh_my_zsh, check macos update. '
-        echo '      And this script will update brew and save logs to ~/Library/Logs/Homebrew.'
-        echo '######################################################'
-    fi
-}
-
-if [ "$1" == "init" ]; then
-    if [ "$inited" == "false" ]; then
-        printInit
-    else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "이미 스크립트가 설정되어 있습니다. "
-        else
-            echo "You are already configured this script."
-        fi
-    fi
-    exit 0
-elif [ "$1" == "version" ]; then
+if [ "$1" == "version" ]; then
     echo "$version ($build)"
     exit 0
 elif [ "$1" == "runtime" ]; then
@@ -67,35 +17,25 @@ elif [ "$1" == "runtime" ]; then
     exit 0
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
-elif [ "$1" == "safety_guard_override" ]; then
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "경고. 체크섬 확인이 재정의되었으며 이는 안전하지 않습니다. "
-    else
-        echo "Warning. Checksum check had overrided which was unsafe. "
-    fi
 elif [ "$1" == "help" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo "사용법: $0 [옵션]"
-        echo "                 init: 스크립트 초기 설정"
         echo "              version: 스크립트 버전 출력"
         echo "              runtime: 이전 brewall 시간 출력"
-        echo "safety_guard_override: 체크섬 확인 비활성화 (권장하지 않음)"
         echo "                 help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
-        echo "                 init: Initial set script"
         echo "              version: Print script version"
         echo "              runtime: Print previous brewall launch time."
-        echo "safety_guard_override: Disable checksum check (Not recommend)"
         echo "                 help: Print script help"
     fi
     exit 0
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "$1 은 알 수 없는 명령이며 무시됩니다. "
+        echo "$@ 은 알 수 없는 명령이며 무시됩니다. "
         echo "brewall의 도움말을 보시려면 help 명령을 사용하십시오. "
     else
-        echo "Unknown command $1 Skipping."
+        echo "Unknown command $@ Skipping."
         echo "If you wonder brewall help, Please use help command. "
     fi
 fi
@@ -153,28 +93,11 @@ function compareTime() {
 startTime=$(date +%s)
 ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
 if [ "$?" != "0" ]; then
-    inited=false
+    mkdir ~/Library/Application\ Support/com.greengecko.brewall
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "  경고: \"init\"을 추가하여 이 스크립트를 더 빠르게 실행해 보십시오. "
-        echo "사용법: ./brewall.sh init"
-        echo "  정보: 이 옵션은 설치 가이드를 프린트할 것입니다. "
+        echo -e "brewall 설정 폴더를 생성하였습니다. 설정 폴더는 \033[0;1m/Library/Application\ Support/com.greengecko.brewall\033[m에 위치할 것입니다. "
     else
-        echo " WARN: Please add \"init\" option to run faster this script."
-        echo "USAGE: ./brewall.sh init"
-        echo " INFO: This option will print install guide."
-    fi
-    which brew > /dev/null 2>&1
-    if [ $? != 0 ]; then
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "이 brewall 스크립트는 Homebrew 패키지 관리자를 더 사용하기 쉽도록 하는 도구이며 Homebrew가 필수적으로 필요합니다. "
-            echo -e "\033[0;1mhttps://brew.sh/index_ko\033[m 이 사이트에 들어가서 Homebrew를 설치하는 것을 도움받거나"
-            echo "아니면 아래 명령어를 쉘에 붙여넣으세요. (이 스크립트는 무엇을 할지 설명하고 실행하기 전 잠시 대기합니다. )"
-        else
-            echo "This brewall script require Homebrew. Because extend of Homebrew tools."
-            echo -e "Please enter this site \033[0;1mhttps://brew.sh\033[m and support while install Homebrew or "
-            echo "Below paste command in the shell. (This script explains what it will do and then pauses before it does it. )"
-        fi
-        echo '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
+        echo -e "brewall config folder created. This config folder path is \033[0;1m~/Library/Application\ Support/com.greengecko.brewall\033[m"
     fi
 fi
 
@@ -188,47 +111,42 @@ if [ "$?" != "0" ]; then
     fi
 fi
 
-ls ~/Library/Application\ Support/com.greengecko.brewall 2> /dev/null | grep $version > /dev/null 2>&1
+which brew > /dev/null 2>&1
 if [ $? != 0 ]; then
-    rm ~/Library/Application\ Support/com.greengecko.brewall/*.csm 2> /dev/null
-    shasum -a 256 $0 > ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -n "현재 스크립트 체크섬: "
-    else
-        echo -n "Current script checksum: "
-    fi
-    cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
-    rm $debugPath/$version.csm 2> /dev/null
-elif [ "$1" != "safety_guard_override" ]; then
-    shasum -a 256 $0 > $debugPath/$version.csm 2> /dev/null
-    diff ~/Library/Application\ Support/com.greengecko.brewall/$version.csm $debugPath/$version.csm > /dev/null 2>&1
-    if [ $? == 0 ]; then
-        echo "" > /dev/null 2>&1
-    else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -n "저장된 스크립트 체크섬: "
-            cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
-            echo -n "현재 스크립트 체크섬: "
-            cat $debugPath/$version.csm 2> /dev/null
-            echo "스크립트 파일이 악의적 목적으로 변조되었을 가능성이 있어 중단되었습니다. "
-        else
-            echo -n "Saved script checksum: "
-            cat ~/Library/Application\ Support/com.greengecko.brewall/$version.csm 2> /dev/null
-            echo -n "Current script checksum: "
-            cat $debugPath/$version.csm 2> /dev/null
-            echo "Unauthorized edited script who changes by hacker. Aborting."
+        echo "이 brewall 스크립트는 Homebrew 패키지 관리자를 더 사용하기 쉽도록 하는 도구이며 Homebrew가 필수적으로 필요합니다. "
+        echo -e "\033[0;1mhttps://brew.sh/index_ko\033[m 이 사이트에 들어가서 Homebrew를 수동으로 설치하거나"
+        echo "아니면 지금 한번에 설치할 수 있습니다. (제 3자 스크립트를 실행하며 무엇을 할지 설명하고 잠시 대기합니다. )"
+
+        echo -e "\033[0;1mmacOS 요구사항\033[m"
+        echo "64비트 인텔 CPU"
+        echo "10.13 이상 권장"
+        echo "Xcode 와/또는 xcode-select 필요"
+
+        echo "설치하시겠습니까? (Y/n) > "
+        read n
+        if [ "$n" == "n" -o "$n" == "N" ]; then
+            echo "설취를 취소하였습니다. 필수 패키지를 로드할 수 없으므로 종료합니다. "
+            exit 1
         fi
-        endTime=$(date +%s)
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -n "소비 시간: "
-        else
-            echo -n "Elapsed Time: "
+    else
+        echo "This brewall script require Homebrew. Because extend of Homebrew tools."
+        echo -e "Please enter this site \033[0;1mhttps://brew.sh\033[m and manual install Homebrew or "
+        echo "Install now on this script. (Execute Third party script and explains what it will do and then pauses before it does it. )"
+
+        echo -e "\033[0;1mmacOS Requirements\033[m"
+        echo "64bit Intel CPU"
+        echo "10.13 or higher recommand"
+        echo "Xcode compiler and/or xcode-select require"
+
+        echo "Install Homebrew now? (Y/n) > "
+        read n
+        if [ "$n" == "n" -o "$n" == "N" ]; then
+            echo "Installation aborted. Can not load require package, terminating."
+            exit 1
         fi
-        calcTime $endTime $startTime
-        compareTime
-        exit 1
     fi
-    rm $debugPath/$version.csm 2> /dev/null
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
 fi
 
 ls $debugPath 2> /dev/null |grep brewall_initiated > /dev/null 2>&1
