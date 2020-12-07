@@ -5,8 +5,8 @@ update=false
 upgrade=false
 cleanup=false
 doctor=false
-version=1.1.3
-build=1A025
+version=1.1.4
+build=1A027
 elapsedTime=
 
 if [ "$1" == "version" ]; then
