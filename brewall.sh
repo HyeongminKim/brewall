@@ -6,7 +6,7 @@ upgrade=false
 cleanup=false
 doctor=false
 version=1.1.4
-build=1A027
+build=1A028
 elapsedTime=
 
 if [ "$1" == "version" ]; then
@@ -94,6 +94,7 @@ startTime=$(date +%s)
 ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
 if [ "$?" != "0" ]; then
     mkdir ~/Library/Application\ Support/com.greengecko.brewall
+    touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "brewall 설정 폴더를 생성하였습니다. 설정 폴더는 \033[0;1m~/Library/Application\ Support/com.greengecko.brewall\033[m에 위치할 것입니다. "
     else
@@ -123,7 +124,7 @@ if [ $? != 0 ]; then
         echo "10.13 이상 권장"
         echo "Xcode 와/또는 xcode-select 필요"
 
-        echo "설치하시겠습니까? (Y/n) > "
+        echo -n "설치하시겠습니까? (Y/n) > "
         read n
         if [ "$n" == "n" -o "$n" == "N" ]; then
             echo "설취를 취소하였습니다. 필수 패키지를 로드할 수 없으므로 종료합니다. "
@@ -139,14 +140,14 @@ if [ $? != 0 ]; then
         echo "10.13 or higher recommand"
         echo "Xcode compiler and/or xcode-select require"
 
-        echo "Install Homebrew now? (Y/n) > "
+        echo -n "Install Homebrew now? (Y/n) > "
         read n
         if [ "$n" == "n" -o "$n" == "N" ]; then
             echo "Installation aborted. Can not load require package, terminating."
             exit 1
         fi
     fi
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 ls $debugPath 2> /dev/null |grep brewall_initiated > /dev/null 2>&1
