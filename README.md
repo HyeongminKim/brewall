@@ -12,6 +12,7 @@
     ```
     git clone https://github.com/HyeongminKim/brewall.git [destination]
     ```
+- Legacy brewall.sh can be downloaded [here](https://github.com/HyeongminKim/brewall/releases).
 - Place the brewall.sh where you want it.
 - Now enjoy it
 ### Trouble shooting
