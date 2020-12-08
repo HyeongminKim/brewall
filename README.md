@@ -7,12 +7,12 @@
 - If your mac does not satisfy above requirements see [Tigerbrew](https://github.com/mistydemeo/tigerbrew).
 ### Installation
 - Go to download code section and [download](https://github.com/HyeongminKim/brewall/archive/master.zip) the latest version of brewall package.
+    - Legacy brewall.sh can be downloaded [here](https://github.com/HyeongminKim/brewall/releases).
 - Or in terminal run below command.
 
     ```
     git clone https://github.com/HyeongminKim/brewall.git [destination]
     ```
-- Legacy brewall.sh can be downloaded [here](https://github.com/HyeongminKim/brewall/releases).
 - Place the brewall.sh where you want it.
 - Now enjoy it
 ### Trouble shooting
