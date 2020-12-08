@@ -6,11 +6,16 @@
 - Command Line Tools and/or Xcode
 - If your mac does not satisfy above requirements see [Tigerbrew](https://github.com/mistydemeo/tigerbrew).
 ### Installation
-- Go to [release](https://github.com/HyeongminKim/brewall/releases) section and download the latest version of brewall.sh.
+- Go to download code section and [download](https://github.com/HyeongminKim/brewall/archive/master.zip) the latest version of brewall package.
+- Or in terminal run below command.
+
+    ```
+    git clone https://github.com/HyeongminKim/brewall.git [destination]
+    ```
 - Place the brewall.sh where you want it.
 - Now enjoy it
 ### Trouble shooting
-- If you see the **permission denied** error message, enter chmod 755 \[file name\].
+- If you see the **permission denied** error message, enter chmod 755 \[shell script name\].
 ### Usage: brewall.sh \[option\]
 - version: Print script version. 
 - runtime: Print previous brewall launch time. 
