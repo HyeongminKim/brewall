@@ -8,7 +8,7 @@ if git pull --rebase --stat origin master; then
         echo -en "\033[m"
     else
         echo -e "\033[34mbreall has been updated. \033[m"
-        git log --name-status --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" --no-merges --since=3.weeks
+        git log -10 --name-status --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" --no-merges
     fi
 else
     echo -e "\033[31mThere was an error occured. Try again later.\033[m"
