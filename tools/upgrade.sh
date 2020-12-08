@@ -3,7 +3,7 @@
 cd $1
 last_commit=$(git rev-parse HEAD)
 echo -e "\033[32mUpdating brewall"
-if git pull origin master; then
+if git pull --rebase --stat origin master; then
     if [ "$(git rev-parse HEAD)" = "$last_commit" ]; then
         echo -en "\033[m"
     else
