@@ -14,7 +14,7 @@ if git pull --rebase --stat origin master; then
     if [ "$updated_commit" = "$last_commit" ]; then
         echo -en "\033[m"
     else
-        updated_version=$("$1/brewall.sh" "version")
+        updated_version=$("$1/brewall.sh" "version" | sed '/brewall/!d')
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
         else
