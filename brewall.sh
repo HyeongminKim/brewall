@@ -5,8 +5,8 @@ update=false
 upgrade=false
 cleanup=false
 doctor=false
-version=1.2.0
-build=1A032
+version=1.2.1
+build=1A037
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
@@ -14,7 +14,14 @@ if [ "$1" == "version" ]; then
     echo "$version ($build)"
     exit 0
 elif [ "$1" == "runtime" ]; then
-    cat $debugPath/brewall_initiated.log
+    cat $debugPath/brewall_initiated.log 2> /dev/null
+    if [ $? != 0 ]; then
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[31m이전에 brewall을 실행한 적이 없습니다. \033[m"
+        else
+            echo -e "\033[31mYou have never run brewall before.\033[m"
+        fi
+    fi
     exit 0
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
@@ -100,7 +107,7 @@ fi
 
 ls $debugPath 2> /dev/null |grep brewall_initiated > /dev/null 2>&1
 if [ $? == 0 ]; then
-    cat $debugPath/brewall_initiated.log
+    cat $debugPath/brewall_initiated.log 2> /dev/null
 fi
 if [ $LANG == "ko_KR.UTF-8" ]; then
     echo -n "[33m이전 시간: $(date)[0m " > $debugPath/brewall_initiated.log
