@@ -16,7 +16,7 @@ if git pull --rebase --stat origin master; then
         else
             echo -e "\033[34mbreall has been updated. \033[m"
         fi
-        git show --stat --color --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $(git rev-parse HEAD) $last_commit | less
+        git show --stat --color --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $(git rev-parse HEAD) $last_commit
     fi
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
