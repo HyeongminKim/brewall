@@ -10,7 +10,8 @@ else
     echo -e "\033[32mUpdating brewall"
 fi
 if git pull --rebase --stat origin master; then
-    if [ "$(git rev-parse HEAD)" = "$last_commit" ]; then
+    updated_commit=$(git rev-parse HEAD)
+    if [ "$updated_commit" = "$last_commit" ]; then
         echo -en "\033[m"
     else
         updated_version=$("$1/brewall.sh" "version")
@@ -20,7 +21,7 @@ if git pull --rebase --stat origin master; then
             echo -e "\033[34mbreall has been updated. \033[m"
         fi
         echo "$last_version → $updated_version"
-        git show --stat --color --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $(git rev-parse HEAD) $last_commit |less -R
+        git show --stat --color --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit $last_commit |less -R
     fi
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
