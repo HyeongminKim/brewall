@@ -3,7 +3,7 @@
 cd $1
 last_commit=$(git rev-parse HEAD)
 if [ $LANG == "ko_KR.UTF-8" ]; then
-    echo -e "\033[32mbrewall 업데이트중\033[m"
+    echo -e "\033[32mbrewall 업데이트중"
 else
     echo -e "\033[32mUpdating brewall"
 fi
