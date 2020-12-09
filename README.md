@@ -1,7 +1,7 @@
 # brewall
 ## This shell script helps you update your [Homebrew](https://brew.sh).
 ### macOS Requirements
-- 64bit Intel CPU (M CPU does not fully support yet)
+- 64bit Intel CPU (M CPU does not fully support [yet](https://github.com/Homebrew/brew/issues/7857))
 - macOS High Sierra (10.13) or higher
 - Command Line Tools and/or Xcode
 - If your mac does not satisfy above requirements see [Tigerbrew](https://github.com/mistydemeo/tigerbrew).
