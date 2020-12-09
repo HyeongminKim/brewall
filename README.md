@@ -1,12 +1,10 @@
 # brewall
-## This shell script helps you update your [Homebrew](https://brew.sh).
-### macOS Requirements
-- 64bit Intel CPU (M CPU does not fully support [yet](https://github.com/Homebrew/brew/issues/7857))
-- macOS High Sierra (10.13) or higher
-- Command Line Tools and/or Xcode
-- If your mac does not satisfy above requirements see [Tigerbrew](https://github.com/mistydemeo/tigerbrew).
+## This shell script helps you update your brew package manager.
+### Supported brew package manager
+- [Homebrew](https://brew.sh)
+- [Tigerbrew](https://github.com/mistydemeo/tigerbrew)
 ### Installation
-- Go to download code section and [download](https://github.com/HyeongminKim/brewall/archive/master.zip) the latest version of brewall package.
+- [Download](https://github.com/HyeongminKim/brewall/archive/master.zip) the latest version of brewall package.
     - Legacy brewall.sh can be downloaded [here](https://github.com/HyeongminKim/brewall/releases).
 - Or in terminal run below command.
 
@@ -16,7 +14,11 @@
 - Place the brewall.sh where you want it.
 - Now enjoy it
 ### Trouble shooting
-- If you see the **permission denied** error message, enter chmod 755 \[shell script name\].
+- If you see the **permission denied** error message run command like below.
+
+    ```
+    chmod 755 <foo.sh>
+    ```
 ### Usage: brewall.sh \[option\]
 - version: Print script version. 
 - runtime: Print previous brewall launch time. 

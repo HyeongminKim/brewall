@@ -31,7 +31,7 @@ if [ $? != 0 ]; then
         echo "이 brewall 스크립트는 brew 패키지 관리자를 더 사용하기 쉽도록 하는 도구이며 이들이 필수적으로 필요합니다. "
 
         echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
-        echo "64비트 인텔 CPU"
+        echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
         echo "10.13 이상 권장"
         echo -e "Xcode 와/또는 xcode-select 필요\n"
 
@@ -68,7 +68,7 @@ if [ $? != 0 ]; then
         echo "This brewall script require brew. Because extend of these tools."
         
         echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
-        echo "64bit Intel CPU"
+        echo "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
         echo "10.13 or higher recommand"
         echo -e "Xcode compiler and/or xcode-select require\n"
 
