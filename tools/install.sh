@@ -7,9 +7,9 @@ if [ "$?" != "0" ]; then
     mkdir ~/Library/Application\ Support/com.greengecko.brewall
     touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "brewall 설정 폴더를 생성하였습니다. 설정 폴더는 \033[0;1m~/Library/Application\ Support/com.greengecko.brewall\033[m에 위치할 것입니다. "
+        echo -e "brewall 설정 폴더를 생성하였습니다. 설정 폴더는 \033[0;1m$HOME/Library/Application\ Support/com.greengecko.brewall\033[m에 위치할 것입니다. "
     else
-        echo -e "brewall config folder created. This config folder path is \033[0;1m~/Library/Application\ Support/com.greengecko.brewall\033[m"
+        echo -e "brewall config folder created. This config folder path is \033[0;1m$HOME/Library/Application\ Support/com.greengecko.brewall\033[m"
     fi
 fi
 
