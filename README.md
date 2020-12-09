@@ -1,5 +1,6 @@
 # brewall
 ## This shell script helps you update your brew package manager.
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/hmDonate)
 ### Supported brew package manager
 - [Homebrew](https://brew.sh)
 - [Tigerbrew](https://github.com/mistydemeo/tigerbrew)
