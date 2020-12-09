@@ -5,13 +5,13 @@
 - [Tigerbrew](https://github.com/mistydemeo/tigerbrew)
 ### Installation
 - [Download](https://github.com/HyeongminKim/brewall/archive/master.zip) the latest version of brewall package.
+    - Place the brewall package where you want it.
     - Legacy brewall.sh can be downloaded [here](https://github.com/HyeongminKim/brewall/releases).
 - Or in terminal run below command.
 
     ```
     git clone https://github.com/HyeongminKim/brewall.git [destination]
     ```
-- Place the brewall.sh where you want it.
 - Now enjoy it
 ### Trouble shooting
 - If you see the **permission denied** error message run command like below.
