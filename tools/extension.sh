@@ -26,13 +26,6 @@ if [ "$macvimPath" != "" ]; then
         fi
         errorCount=$((errorCount+1))
     fi
-else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "MacVim.app 이 존재하지 않습니다."
-    else
-        echo "Does not exist MacVim.app."
-    fi
-    errorCount=$((errorCount+1))
 fi
 
 
