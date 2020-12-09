@@ -17,7 +17,7 @@
 - If you see the **permission denied** error message run command like below.
 
     ```
-    chmod 755 <foo.sh>
+    chmod 755 foo.sh
     ```
 ### Usage: brewall.sh \[option\]
 - version: Print script version. 
