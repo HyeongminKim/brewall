@@ -159,7 +159,7 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_doctor_debug.log
 fi
-"$executePath/tools/upgrade.sh" "$executePath"
+"$executePath/tools/upgrade.sh" "$executePath" "$version ($build)"
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
     if [ $LANG == "ko_KR.UTF-8" ]; then
