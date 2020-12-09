@@ -11,7 +11,12 @@ elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
 if [ "$1" == "version" ]; then
-    echo "$version ($build)"
+    echo -e "brewall $version ($build)\nCopyright (c) 2020 Hyeongmin Kim\n"
+    bash --version
+    echo ""
+    brew --version
+    echo ""
+    git --version
     exit 0
 elif [ "$1" == "runtime" ]; then
     cat $debugPath/brewall_initiated.log 2> /dev/null
