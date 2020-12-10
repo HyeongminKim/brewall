@@ -10,7 +10,7 @@ build=1A042
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
-if [ "$1" == "version" ]; then
+if [ "$1" == "--version" ]; then
     echo -e "brewall $version ($build)\nCopyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
@@ -18,7 +18,7 @@ if [ "$1" == "version" ]; then
     echo ""
     git --version
     exit 0
-elif [ "$1" == "runtime" ]; then
+elif [ "$1" == "--runtime" ]; then
     cat $debugPath/brewall_initiated.log 2> /dev/null
     if [ $? != 0 ]; then
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -30,17 +30,17 @@ elif [ "$1" == "runtime" ]; then
     exit 0
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
-elif [ "$1" == "help" ]; then
+elif [ "$1" == "--help" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo "사용법: $0 [옵션]"
-        echo "              version: 스크립트 버전 출력"
-        echo "              runtime: 이전 brewall 시간 출력"
-        echo "                 help: 스크립트 도움말 출력"
+        echo "            --version: 스크립트 버전 출력"
+        echo "            --runtime: 이전 brewall 시간 출력"
+        echo "               --help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
-        echo "              version: Print script version"
-        echo "              runtime: Print previous brewall launch time."
-        echo "                 help: Print script help"
+        echo "            --version: Print script version"
+        echo "            --runtime: Print previous brewall launch time."
+        echo "               --help: Print script help"
     fi
     exit 0
 else

@@ -21,8 +21,8 @@
     chmod 755 foo.sh
     ```
 ### Usage: brewall.sh \[option\]
-- version: Print script version. 
-- runtime: Print previous brewall launch time. 
-- help: print this help
+- --version: Print this script version and environment version. 
+- --runtime: Print previous brewall launch time. 
+- --help: Print this help
 ### License
 This work is licensed under a [MIT License](https://github.com/HyeongminKim/brewall/blob/master/LICENSE).
