@@ -21,9 +21,11 @@
     chmod 755 foo.sh
     ```
 ### Usage: brewall.sh \[option\]
-- --version: Print this script version and environment version. 
-- --runtime: Print previous brewall launch time. 
-- --remove: brew package manager uninstall and brewall config reset.
-- --help: Print this help.
+- version: Print this script version and environment version. 
+- runtime: Print previous brewall launch time. 
+- remove: brew package manager uninstall.
+    - --dry-run: brewall config remove.
+    - --purge: brew package manager uninstall and brewall config remove.
+- help: Print this help.
 ### License
 This work is licensed under a [MIT License](https://github.com/HyeongminKim/brewall/blob/master/LICENSE).

@@ -10,10 +10,7 @@ build=1A042
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
-if [ "$1" == "--version" -o "$1" == "version" ]; then
-    if [ "$1" == "version" ]; then
-        echo -e "\033[33m$1 option deprecated. use --$1\033[m"
-    fi
+if [ "$1" == "version" ]; then
     echo -e "brewall $version ($build)\nCopyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
@@ -21,10 +18,7 @@ if [ "$1" == "--version" -o "$1" == "version" ]; then
     echo ""
     git --version
     exit 0
-elif [ "$1" == "--runtime" -o "$1" == "runtime" ]; then
-    if [ "$1" == "runtime" ]; then
-        echo -e "\033[33m$1 option deprecated. use --$1\033[m"
-    fi
+elif [ "$1" == "runtime" ]; then
     if [ -r $debugPath/brewall_initiated.log ]; then
         cat $debugPath/brewall_initiated.log 2> /dev/null
     else
@@ -35,9 +29,9 @@ elif [ "$1" == "--runtime" -o "$1" == "runtime" ]; then
         fi
     fi
     exit 0
-elif [ "$1" == "--remove" ]; then
+elif [ "$1" == "remove" ]; then
     if [ -x $executePath/tools/install.sh ]; then
-        "$executePath/tools/install.sh" "uninstall"
+        "$executePath/tools/install.sh" "uninstall" "$2"
     else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[31m언인스톨러를 실행할 권한이 없습니다. \033[m"
@@ -48,22 +42,19 @@ elif [ "$1" == "--remove" ]; then
     exit $?
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
-elif [ "$1" == "--help" -o "$1" == "help" ]; then
-    if [ "$1" == "help" ]; then
-        echo -e "\033[33m$1 option deprecated. use --$1\033[m"
-    fi
+elif [ "$1" == "help" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo "사용법: $0 [옵션]"
-        echo "            --version: 스크립트 버전 출력"
-        echo "            --runtime: 이전 brewall 시간 출력"
-        echo "             --remove: brew 패키지 관리자 제거 및 brewall 환경 초기화"
-        echo "               --help: 스크립트 도움말 출력"
+        echo "              version: 스크립트 버전 출력"
+        echo "              runtime: 이전 brewall 시간 출력"
+        echo "               remove: brew 패키지 관리자 제거 및 brewall 환경 초기화"
+        echo "                 help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
-        echo "            --version: Print script version"
-        echo "            --runtime: Print previous brewall launch time"
-        echo "             --remove: brew package manager uninstall and brewall config reset"
-        echo "               --help: Print script help"
+        echo "              version: Print script version"
+        echo "              runtime: Print previous brewall launch time"
+        echo "               remove: brew package manager uninstall and brewall config reset"
+        echo "                 help: Print script help"
     fi
     exit 0
 else

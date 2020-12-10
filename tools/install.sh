@@ -102,22 +102,35 @@ if [ "$1" == "install" ]; then
         fi
     fi
 elif [ "$1" == "uninstall" ]; then
-    ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
-    if [ $? == 0 ]; then 
-        rm -rf ~/Library/Application\ Support/com.greengecko.brewall
-    fi
-    if [ -w $debugPath ]; then
-        rm -rf $debugPath
-    fi
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
+    function removeConfig() {
+        ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
+        if [ $? == 0 ]; then 
+            rm -rf ~/Library/Application\ Support/com.greengecko.brewall
+        fi
+        if [ -w $debugPath ]; then
+            rm -rf $debugPath
+        fi
+    }
+
+    function removePackage() {
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
+        else
+            echo -e "Which brew package manager did you install? (H/t) > "
+        fi
+        read n
+        if [ "$n" == "t" -o "$n" == "T" ]; then
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+        else
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+        fi
+    }
+    if [ "$2" == "--dry-run" ]; then
+        removeConfig
+    elif [ "$2" == "--purge" ]; then
+        removePackage
+        removeConfig
     else
-        echo -e "Which brew package manager did you install? (H/t) > "
-    fi
-    read n
-    if [ "$n" == "t" -o "$n" == "T" ]; then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-    else
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+        removePackage
     fi
 fi
