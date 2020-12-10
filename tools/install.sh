@@ -3,8 +3,9 @@
 debugPath=~/Library/Logs/Homebrew
 
 if [ "$1" == "install" ]; then
-    ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
-    if [ "$?" != "0" ]; then
+    if [ -r "~/Library/Application Support/com.greengecko.brewall/initializationed" ]; then
+        echo "" > /dev/null
+    else
         mkdir ~/Library/Application\ Support/com.greengecko.brewall
         touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -14,8 +15,9 @@ if [ "$1" == "install" ]; then
         fi
     fi
 
-    ls $debugPath > /dev/null 2>&1
-    if [ "$?" != "0" ]; then
+    if [ -d $debugPath ]; then
+        echo "" > /dev/null
+    else
         mkdir ~/Library/Logs/Homebrew
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "brewall 로그 폴더를 생성하였습니다. 모든 로그 파일들은 \033[0;1m$debugPath\033[m에 위치할 것입니다. "
@@ -101,17 +103,21 @@ if [ "$1" == "install" ]; then
         fi
     fi
 elif [ "$1" == "uninstall" ]; then
+    if [ -w "~/Library/Application Support/com.greengecko.brewall" ]; then
         rm -rf ~/Library/Application\ Support/com.greengecko.brewall
-        rm -rf $debugPath > /dev/null 2>&1
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
-        else
-            echo -e "Which brew package manager did you install? (H/t) > "
-        fi
-        read n
-        if [ "$n" == "t" -o "$n" == "T" ]; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-        else
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
-        fi
+    fi
+    if [ -w $debugPath ]; then
+        rm -rf $debugPath
+    fi
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
+    else
+        echo -e "Which brew package manager did you install? (H/t) > "
+    fi
+    read n
+    if [ "$n" == "t" -o "$n" == "T" ]; then
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+    else
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+    fi
 fi

@@ -25,8 +25,9 @@ elif [ "$1" == "--runtime" -o "$1" == "runtime" ]; then
     if [ "$1" == "runtime" ]; then
         echo -e "\033[33m$1 option deprecated. use --$1\033[m"
     fi
-    cat $debugPath/brewall_initiated.log 2> /dev/null
-    if [ $? != 0 ]; then
+    if [ -r $debugPath/brewall_initiated.log ]; then
+        cat $debugPath/brewall_initiated.log 2> /dev/null
+    else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[31m이전에 brewall을 실행한 적이 없습니다. \033[m"
         else
@@ -35,7 +36,15 @@ elif [ "$1" == "--runtime" -o "$1" == "runtime" ]; then
     fi
     exit 0
 elif [ "$1" == "--remove" ]; then
-    "$executePath/tools/install.sh" "uninstall"
+    if [ -x $executePath/tools/install.sh ]; then
+        "$executePath/tools/install.sh" "uninstall"
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[31m언인스톨러를 실행할 권한이 없습니다. \033[m"
+        else
+            echo -e "\033[31mCan't run uninstaller, Please change permission.\033[m"
+        fi
+    fi
     exit $?
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
@@ -82,8 +91,7 @@ function calcTime() {
 
 function compareTime() {
     currenrtElapsedTime=$elapsedTime
-    cat $debugPath/ElapsedTime.txt > /dev/null 2>&1
-    if [ "$?" == "0" ]; then
+    if [ -r $debugPath/ElapsedTime.txt ]; then
         previousElapsedTime=$(cat $debugPath/ElapsedTime.txt 2> /dev/null)
         if [ $previousElapsedTime -gt $currenrtElapsedTime ]; then
             result=$(($previousElapsedTime-$currenrtElapsedTime))
@@ -119,14 +127,21 @@ function compareTime() {
 
 startTime=$(date +%s)
 
-"$executePath/tools/install.sh" "install"
-if [ $? != 0 ]; then
-    exit 1
+if [ -x $executePath/tools/install.sh ]; then
+    "$executePath/tools/install.sh" "install"
+    if [ $? != 0 ]; then
+        exit 1
+    fi
+else
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[31m의존성 패키지가 제대로 설치되어 있는지 확인할 수 없어 종료합니다. \033[m"
+    else
+        echo -e "\033[31mExited because dependency package couldn't be verified.\033[m"
+    fi
 fi
 
-ls $debugPath 2> /dev/null |grep brewall_initiated > /dev/null 2>&1
-if [ $? == 0 ]; then
-    cat $debugPath/brewall_initiated.log 2> /dev/null
+if [ -r $debugPath/brewall_initiated.log ]; then
+    cat $debugPath/brewall_initiated.log
 fi
 if [ $LANG == "ko_KR.UTF-8" ]; then
     echo -n "[33m이전 시간: $(date)[0m " > $debugPath/brewall_initiated.log
@@ -136,19 +151,24 @@ else
     echo -e "\033[32mInitiated time: $(date)\033[m"
 fi
 
-while true; do
-    ping -c 1 -W 1 -q "www.google.com" &> /dev/null
-    if [ "$?" != "0" ]; then
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "\033[31m인터넷 연결 확인\033[m"
-        else
-            echo -e "\033[31mCheck your internet connection.\033[m"
-        fi
-        sleep 1
+ping -c 1 -W 1 -q "www.google.com" &> /dev/null
+if [ "$?" != "0" ]; then
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -en "\033[31m인터넷 연결 확인."
     else
-        break
+        echo -en "\033[31mCheck your internet connection."
     fi
-done
+    while true; do
+        ping -c 1 -W 1 -q "www.google.com" &> /dev/null
+        if [ "$?" != "0" ]; then
+            echo -n "."
+            sleep 1
+        else
+            echo "\033[m"
+            break
+        fi
+    done
+fi
 
 brew update 2> $debugPath/brew_update_debug.log
 if [ "$?" != "0" ]; then
@@ -178,7 +198,10 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_doctor_debug.log
 fi
-"$executePath/tools/upgrade.sh" "$executePath" "$version ($build)"
+
+if [ -x $executePath/tools/upgrade.sh ]; then
+    "$executePath/tools/upgrade.sh" "$executePath" "$version ($build)"
+fi
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
     if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -220,7 +243,7 @@ else
         echo -e "\033[34mbrewall has successful.\033[m"
     fi
     ls $executePath/tools 2> /dev/null | grep extension > /dev/null 2>&1
-    if [ "$?" == "0" ]; then
+    if [ -x $executePath/tools/extension.sh ]; then
         "$executePath/tools/extension.sh"
         if [ $? == 0 ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
