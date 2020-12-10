@@ -1,5 +1,6 @@
 #!/bin/bash
 
+tempPath=~/Library/Logs/Homebrew
 cd $1
 last_commit=$(git rev-parse HEAD)
 last_version=$2
@@ -21,8 +22,38 @@ if git pull --rebase --stat origin master; then
             echo -e "\033[34mbreall has been updated. \033[m"
         fi
         echo "$last_version → $updated_version"
+
         #TODO: Classified according to commit comments and show current branch
-        git log --stat --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit |less -R
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[0;1m현재 업데이트 채널\033[m" >> $tempPath/releasenote.txt
+        else
+            echo -e "\033[0;1mCurrent update channel\033[m" >> $tempPath/releasenote.txt
+        fi
+        echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $tempPath/releasenote.txt
+
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[0;1m새로운 기능\033[m" >> $tempPath/releasenote.txt
+        else
+            echo -e "\033[0;1mNew features\033[m" >> $tempPath/releasenote.txt
+        fi
+        git log --stat --grep "[NEW]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[0;1m삭제된 기능\033[m" >> $tempPath/releasenote.txt
+        else
+            echo -e "\033[0;1mRemoved features\033[m" >> $tempPath/releasenote.txt
+        fi
+        git log --stat --grep "[REMOVED]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[0;1m실험중인 기능\033[m" >> $tempPath/releasenote.txt
+        else
+            echo -e "\033[0;1mTesting features\033[m" >> $tempPath/releasenote.txt
+        fi
+        git log --stat --grep "[TEST]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+
+        less -R $tempPath/releasenote.txt
+        rm $tempPath/releasenote.txt
     fi
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
