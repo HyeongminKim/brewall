@@ -21,6 +21,7 @@ if git pull --rebase --stat origin master; then
             echo -e "\033[34mbreall has been updated. \033[m"
         fi
         echo "$last_version → $updated_version"
+        #TODO: Classified according to commit comments and show current branch
         git log --stat --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit |less -R
     fi
 else
