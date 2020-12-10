@@ -36,28 +36,32 @@ if git pull --rebase --stat origin master; then
         else
             echo -e "\033[0;1mNew features\033[m" >> $tempPath/releasenote.txt
         fi
-        git log --stat --grep "[NEW]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        git log --stat --grep="[NEW]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        echo ""
 
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m업데이트된 기능\033[m" >> $tempPath/releasenote.txt
         else
             echo -e "\033[0;1mUpdated features\033[m" >> $tempPath/releasenote.txt
         fi
-        git log --stat --grep "[UPDATED]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        git log --stat --grep="[UPDATED]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        echo ""
 
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m삭제된 기능\033[m" >> $tempPath/releasenote.txt
         else
             echo -e "\033[0;1mRemoved features\033[m" >> $tempPath/releasenote.txt
         fi
-        git log --stat --grep "[REMOVED]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        git log --stat --grep="[REMOVED]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        echo ""
 
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m실험중인 기능\033[m" >> $tempPath/releasenote.txt
         else
             echo -e "\033[0;1mTesting features\033[m" >> $tempPath/releasenote.txt
         fi
-        git log --stat --grep "[TEST]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        git log --stat --grep="[TEST]" --color --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $tempPath/releasenote.txt
+        echo ""
 
         less -R $tempPath/releasenote.txt
         rm $tempPath/releasenote.txt
