@@ -5,13 +5,12 @@ update=false
 upgrade=false
 cleanup=false
 doctor=false
-version=1.2.2
-build=1A042
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
 if [ "$1" == "version" ]; then
-    echo -e "brewall $version ($build)\nCopyright (c) 2020 Hyeongmin Kim\n"
+    cd $executePath
+    echo -e "brewall $(git rev-parse --short HEAD)\nCopyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
     brew --version
@@ -192,7 +191,7 @@ else
 fi
 
 if [ -x $executePath/tools/upgrade.sh ]; then
-    "$executePath/tools/upgrade.sh" "$executePath" "$version ($build)"
+    "$executePath/tools/upgrade.sh" "$executePath"
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[31m자동 업데이트 도중 에러가 발생하였습니다. 수동으로 진행하여 주세요\033[m"

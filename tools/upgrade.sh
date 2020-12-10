@@ -2,7 +2,7 @@
 
 cd $1
 last_commit=$(git rev-parse HEAD)
-last_version=$2
+last_version=$(git rev-parse --short HEAD)
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
@@ -61,7 +61,7 @@ if git pull --rebase --stat origin master; then
     if [ "$updated_commit" = "$last_commit" ]; then
         echo -en "\033[m"
     else
-        updated_version=$("$1/brewall.sh" "version" | sed '/brewall/!d'| sed 's/brewall //g')
+        updated_version=$(git rev-parse --short HEAD)
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
         else
