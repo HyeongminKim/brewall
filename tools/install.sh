@@ -3,9 +3,8 @@
 debugPath=~/Library/Logs/Homebrew
 
 if [ "$1" == "install" ]; then
-    if [ -r "~/Library/Application Support/com.greengecko.brewall/initializationed" ]; then
-        echo "" > /dev/null
-    else
+    ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
+    if [ $? != 0 ]; then
         mkdir ~/Library/Application\ Support/com.greengecko.brewall
         touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -103,7 +102,8 @@ if [ "$1" == "install" ]; then
         fi
     fi
 elif [ "$1" == "uninstall" ]; then
-    if [ -w "~/Library/Application Support/com.greengecko.brewall" ]; then
+    ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
+    if [ $? == 0 ]; then 
         rm -rf ~/Library/Application\ Support/com.greengecko.brewall
     fi
     if [ -w $debugPath ]; then
