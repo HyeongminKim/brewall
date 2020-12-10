@@ -34,6 +34,9 @@ elif [ "$1" == "--runtime" -o "$1" == "runtime" ]; then
         fi
     fi
     exit 0
+elif [ "$1" == "--remove" ]; then
+    "$executePath/tools/install.sh" "uninstall"
+    exit $?
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
 elif [ "$1" == "--help" -o "$1" == "help" ]; then
@@ -114,7 +117,7 @@ function compareTime() {
 
 startTime=$(date +%s)
 
-"$executePath/tools/install.sh" "$executePath"
+"$executePath/tools/install.sh" "install"
 if [ $? != 0 ]; then
     exit 1
 fi
