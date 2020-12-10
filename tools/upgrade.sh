@@ -30,7 +30,7 @@ if git pull --rebase --stat origin master; then
         fi
         echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
-        if [ $(git log --grep="ADD" --no-merges $updated_commit...$last_commit) != "" ]; then
+        if [ -z "$(git log --grep="ADD" --no-merges $updated_commit...$last_commit)" ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m새로운 기능\033[m" >> $releasePath/releasenote.txt
             else
@@ -40,7 +40,7 @@ if git pull --rebase --stat origin master; then
             echo "" >> $releasePath/releasenote.txt
         fi
 
-        if [ $(git log --grep="UPDATE" --no-merges $updated_commit...$last_commit) != "" ]; then
+        if [ -z "$(git log --grep="UPDATE" --no-merges $updated_commit...$last_commit)" ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m업데이트된 기능\033[m" >> $releasePath/releasenote.txt
             else
@@ -50,7 +50,7 @@ if git pull --rebase --stat origin master; then
             echo "" >> $releasePath/releasenote.txt
         fi
 
-        if [ $(git log --grep="DELETE" --no-merges $updated_commit...$last_commit) != "" ]; then
+        if [ -z "$(git log --grep="DELETE" --no-merges $updated_commit...$last_commit)" ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m삭제된 기능\033[m" >> $releasePath/releasenote.txt
             else
@@ -60,7 +60,7 @@ if git pull --rebase --stat origin master; then
             echo "" >> $releasePath/releasenote.txt
         fi
 
-        if [ $(git log --grep="TEST" --no-merges $updated_commit...$last_commit) != "" ]; then
+        if [ -z "$(git log --grep="TEST" --no-merges $updated_commit...$last_commit)" ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m실험중인 기능\033[m" >> $releasePath/releasenote.txt
             else
