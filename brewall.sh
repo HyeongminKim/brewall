@@ -114,7 +114,7 @@ function compareTime() {
 
 startTime=$(date +%s)
 
-"$executePath/tools/install.sh"
+"$executePath/tools/install.sh" "$executePath"
 if [ $? != 0 ]; then
     exit 1
 fi
@@ -214,7 +214,7 @@ else
     else
         echo -e "\033[34mbrewall has successful.\033[m"
     fi
-    ls /usr/local/Cellar/macvim/ > /dev/null 2>&1
+    ls $executePath/tools 2> /dev/null | grep extension > /dev/null 2>&1
     if [ "$?" == "0" ]; then
         "$executePath/tools/extension.sh"
         if [ $? == 0 ]; then

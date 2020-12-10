@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/vim,java,macos,unity,android,processing,androidstudio
 # Edit at https://www.gitignore.io/?templates=vim,java,macos,unity,android,processing,androidstudio
 
+### brewall config ###
+extension.sh
+
 ### macOS ###
 # General
 .DS_Store

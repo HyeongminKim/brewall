@@ -1,6 +1,8 @@
 #!/bin/bash
 
 debugPath=~/Library/Logs/Homebrew
+excutePath=$1
+installed=0
 
 ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
 if [ "$?" != "0" ]; then
@@ -11,6 +13,8 @@ if [ "$?" != "0" ]; then
     else
         echo -e "brewall config folder created. This config folder path is \033[0;1m$HOME/Library/Application\ Support/com.greengecko.brewall\033[m"
     fi
+else
+    installed=$((installed+1))
 fi
 
 ls $debugPath > /dev/null 2>&1
@@ -21,6 +25,8 @@ if [ "$?" != "0" ]; then
     else
         echo -e "brewall log folder created. All logs file are located in \033[0;1m$debugPath\033[m"
     fi
+else
+    installed=$((installed+1))
 fi
 
 which brew > /dev/null 2>&1
@@ -98,5 +104,26 @@ if [ $? != 0 ]; then
         fi
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
+else
+    installed=$((installed+1))
+fi
+
+if [ $installed == 3 ]; then
+    exit 0
+fi
+
+ls $excutePath/tools 2> /dev/null |grep "extension" > /dev/null 2>&1
+if [ $? != 0 ]; then
+    echo '#!/bin/bash' > $excutePath/tools/extension.sh
+    echo '' >> $excutePath/tools/extension.sh
+    echo 'errorCount=0' >> $excutePath/tools/extension.sh
+    echo '' >> $excutePath/tools/extension.sh
+    echo '#TODO: You probably want to do something automatically.' >> $excutePath/tools/extension.sh
+    echo '' >> $excutePath/tools/extension.sh
+    echo 'if [ $errorCount -gt 0  ]; then' >> $excutePath/tools/extension.sh
+    echo '    exit 1' >> $excutePath/tools/extension.sh
+    echo 'else' >> $excutePath/tools/extension.sh
+    echo '    exit 0' >> $excutePath/tools/extension.sh
+    echo 'fi' >> $excutePath/tools/extension.sh
 fi
 
