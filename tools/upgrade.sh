@@ -23,7 +23,6 @@ if git pull --rebase --stat origin master; then
         fi
         echo "$last_version → $updated_version"
 
-        #TODO: Classified according to commit comments and show current branch
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m현재 업데이트 채널\033[m" >> $releasePath/releasenote.txt
         else
@@ -31,13 +30,13 @@ if git pull --rebase --stat origin master; then
         fi
         echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
-        if [ $(git log --grep="NEW" --no-merges $updated_commit...$last_commit) != "" ]; then
+        if [ $(git log --grep="ADD" --no-merges $updated_commit...$last_commit) != "" ]; then
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m새로운 기능\033[m" >> $releasePath/releasenote.txt
             else
                 echo -e "\033[0;1mNew features\033[m" >> $releasePath/releasenote.txt
             fi
-            git log --stat --color --grep="NEW" --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $releasePath/releasenote.txt
+            git log --stat --color --grep="ADD" --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updated_commit...$last_commit >> $releasePath/releasenote.txt
             echo "" >> $releasePath/releasenote.txt
         fi
 

@@ -6,7 +6,7 @@ upgrade=false
 cleanup=false
 doctor=false
 version=1.2.1
-build=1A037
+build=1A042
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
