@@ -138,6 +138,7 @@ else
     else
         echo -e "\033[31mExited because dependency package couldn't be verified.\033[m"
     fi
+    exit 1
 fi
 
 if [ -r $debugPath/brewall_initiated.log ]; then
@@ -201,6 +202,13 @@ fi
 
 if [ -x $executePath/tools/upgrade.sh ]; then
     "$executePath/tools/upgrade.sh" "$executePath" "$version ($build)"
+else
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[31m자동 업데이트 도중 에러가 발생하였습니다. 수동으로 진행하여 주세요\033[m"
+    else
+        echo -e "\033[31mAn error occurred during automatic update. By going manually\033[m"
+    fi
+    echo "https://github.com/HyeongminKim/brewall"
 fi
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
