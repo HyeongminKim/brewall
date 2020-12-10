@@ -23,6 +23,7 @@
 ### Usage: brewall.sh \[option\]
 - --version: Print this script version and environment version. 
 - --runtime: Print previous brewall launch time. 
-- --help: Print this help
+- --remove: brew package manager uninstall and brewall config reset.
+- --help: Print this help.
 ### License
 This work is licensed under a [MIT License](https://github.com/HyeongminKim/brewall/blob/master/LICENSE).

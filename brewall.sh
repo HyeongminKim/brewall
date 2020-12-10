@@ -47,11 +47,13 @@ elif [ "$1" == "--help" -o "$1" == "help" ]; then
         echo "사용법: $0 [옵션]"
         echo "            --version: 스크립트 버전 출력"
         echo "            --runtime: 이전 brewall 시간 출력"
+        echo "             --remove: brew 패키지 관리자 제거 및 brewall 환경 초기화"
         echo "               --help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
         echo "            --version: Print script version"
-        echo "            --runtime: Print previous brewall launch time."
+        echo "            --runtime: Print previous brewall launch time"
+        echo "             --remove: brew package manager uninstall and brewall config reset"
         echo "               --help: Print script help"
     fi
     exit 0
