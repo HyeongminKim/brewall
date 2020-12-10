@@ -7,9 +7,9 @@ last_version=$2
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[0;1m현재 업데이트 채널\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1m현재 업데이트 브랜치\033[m" >> $releasePath/releasenote.txt
     else
-        echo -e "\033[0;1mCurrent update channel\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1mCurrent update branch\033[m" >> $releasePath/releasenote.txt
     fi
     echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
