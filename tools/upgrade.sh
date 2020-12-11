@@ -7,11 +7,15 @@ last_version=$(git rev-parse --short HEAD)
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[0;1m현재 업데이트 브랜치\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1m업데이트 채널\033[m" >> $releasePath/releasenote.txt
     else
-        echo -e "\033[0;1mCurrent update branch\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1mUpdate channel\033[m" >> $releasePath/releasenote.txt
     fi
-    echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
+    if [ $(git branch | sed '/* /!d'| sed 's/* //g') == "master" ]; then
+        echo -e "\033[0;4mstable\033[m\n" >> $releasePath/releasenote.txt
+    else
+        echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
+    fi
 
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[0;1m새로운 기능\033[m" >> $releasePath/releasenote.txt

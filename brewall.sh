@@ -240,7 +240,6 @@ else
     else
         echo -e "\033[34mbrewall has successful.\033[m"
     fi
-    ls $executePath/tools 2> /dev/null | grep extension > /dev/null 2>&1
     if [ -x $executePath/tools/extension.sh ]; then
         "$executePath/tools/extension.sh"
         if [ $? == 0 ]; then
