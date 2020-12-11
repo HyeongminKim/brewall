@@ -17,7 +17,9 @@ function showCommit() {
         echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
     fi
 
-    if [ -n $(git log --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z $(git log --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+        echo "" > /dev/null
+    else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m새로운 기능\033[m" >> $releasePath/releasenote.txt
         else
@@ -27,7 +29,9 @@ function showCommit() {
         echo "" >> $releasePath/releasenote.txt
     fi
 
-    if [ -n $(git log --grep="UPDATE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z $(git log --grep="UPDATE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+        echo "" > /dev/null
+    else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m업데이트된 기능\033[m" >> $releasePath/releasenote.txt
         else
@@ -37,7 +41,9 @@ function showCommit() {
         echo "" >> $releasePath/releasenote.txt
     fi
 
-    if [ -n $(git log --grep="DELETE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z $(git log --grep="DELETE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+        echo "" > /dev/null
+    else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[0;1m삭제된 기능\033[m" >> $releasePath/releasenote.txt
         else
@@ -48,7 +54,9 @@ function showCommit() {
     fi
 
     if [ "$(git branch | sed '/* /!d'| sed 's/* //g')" == "nightly" ]; then
-        if [ -n $(git log --grep="TEST" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+        if [ -z $(git log --grep="TEST" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+            echo "" > /dev/null
+        else
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[0;1m실험중인 기능\033[m" >> $releasePath/releasenote.txt
             else
