@@ -130,7 +130,16 @@ elif [ "$1" == "uninstall" ]; then
     elif [ "$2" == "--purge" ]; then
         removePackage
         removeConfig
+    elif [ x$2 == x ]; then
+        removePackage
     else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo "$2 은 알 수 없는 명령이며 무시됩니다. "
+            echo "brewall의 도움말을 보시려면 help 명령을 사용하십시오. "
+        else
+            echo "Unknown command $2 Skipping."
+            echo "If you wonder brewall help, Please use help command. "
+        fi
         removePackage
     fi
 fi
