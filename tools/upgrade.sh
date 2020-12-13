@@ -11,11 +11,7 @@ function showCommit() {
     else
         echo -e "\033[0;1mUpdate channel\033[m" >> $releasePath/releasenote.txt
     fi
-    if [ $(git branch | sed '/* /!d'| sed 's/* //g') == "master" ]; then
-        echo -e "\033[0;4mstable\033[m\n" >> $releasePath/releasenote.txt
-    else
-        echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
-    fi
+    echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
     if [ -z $(git log --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
         echo "" > /dev/null
