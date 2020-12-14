@@ -20,23 +20,11 @@ if [ "$1" == "version" ]; then
 elif [ "$1" == "runtime" ]; then
     if [ -r $debugPath/brewall_initiated.log ]; then
         cat $debugPath/brewall_initiated.log 2> /dev/null
-    else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "\033[31m이전에 brewall을 실행한 적이 없습니다. \033[m"
-        else
-            echo -e "\033[31mYou have never run brewall before.\033[m"
-        fi
     fi
     exit 0
 elif [ "$1" == "changelog" ]; then
     if [ -r $debugPath/releasenote.txt ]; then
         less -R $debugPath/releasenote.txt
-    else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "\033[31m이전에 brewall을 업데이트한 적이 없습니다. \033[m"
-        else
-            echo -e "\033[31mYou have never update brewall before.\033[m"
-        fi
     fi
     exit 0
 elif [ "$1" == "remove" ]; then
