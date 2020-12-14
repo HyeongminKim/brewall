@@ -7,9 +7,9 @@ last_version=$(git rev-parse --short HEAD)
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[0;1m업데이트 채널\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1m업데이트 채널\033[m" > $releasePath/releasenote.txt
     else
-        echo -e "\033[0;1mUpdate channel\033[m" >> $releasePath/releasenote.txt
+        echo -e "\033[0;1mUpdate channel\033[m" > $releasePath/releasenote.txt
     fi
     echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
@@ -64,7 +64,6 @@ function showCommit() {
     fi
 
     less -R $releasePath/releasenote.txt
-    rm $releasePath/releasenote.txt
 }
 
 if [ $LANG == "ko_KR.UTF-8" ]; then

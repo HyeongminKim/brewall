@@ -28,6 +28,17 @@ elif [ "$1" == "runtime" ]; then
         fi
     fi
     exit 0
+elif [ "$1" == "changelog" ]; then
+    if [ -r $debugPath/releasenote.txt ]; then
+        less -R $debugPath/releasenote.txt
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[31m이전에 brewall을 업데이트한 적이 없습니다. \033[m"
+        else
+            echo -e "\033[31mYou have never update brewall before.\033[m"
+        fi
+    fi
+    exit 0
 elif [ "$1" == "remove" ]; then
     if [ -x $executePath/tools/install.sh ]; then
         "$executePath/tools/install.sh" "uninstall" "$2"
@@ -46,12 +57,14 @@ elif [ "$1" == "help" ]; then
         echo "사용법: $0 [옵션]"
         echo "              version: 스크립트 버전 출력"
         echo "              runtime: 이전 brewall 시간 출력"
+        echo "            changelog: brewall 업데이트 변경사항 보기"
         echo "               remove: brew 패키지 관리자 제거 (다른 옵션: --dry-run, --purge)"
         echo "                 help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
         echo "              version: Print script version"
         echo "              runtime: Print previous brewall launch time"
+        echo "            changelog: brewall view update changes"
         echo "               remove: brew package manager uninstall (other option: --dry-run, --purge)"
         echo "                 help: Print script help"
     fi

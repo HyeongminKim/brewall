@@ -23,6 +23,7 @@
 ### Usage: brewall.sh \[option\]
 - version: Print this script version and environment version. 
 - runtime: Print previous brewall launch time. 
+- changelog: View update changes
 - remove: brew package manager uninstall.
     - --dry-run: brewall config remove.
     - --purge: brew package manager uninstall and brewall config remove.
