@@ -2,6 +2,15 @@
 
 debugPath=~/Library/Logs/Homebrew
 
+if [ "$(uname -s)" != "Darwin" ]; then
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[31m$(uname -s) 는 아직 지원하지 않습니다. \033[m"
+    else
+        echo -e "\033[31m$(uname -s) does not support yet.\033[m"
+    fi
+    exit 1
+fi
+
 if [ "$1" == "install" ]; then
     ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
     if [ $? != 0 ]; then
