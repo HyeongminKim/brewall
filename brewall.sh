@@ -146,14 +146,18 @@ fi
 ping -c 1 -W 1 -q "www.google.com" &> /dev/null
 if [ "$?" != "0" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -en "\033[31m인터넷 연결 확인"
+        echo -en "\033[31m인터넷 연결 확인... "
     else
-        echo -en "\033[31mCheck your internet connection"
+        echo -en "\033[31mCheck your internet connection... "
     fi
+    index=0
+    spinner='/-\|'
+    n=${#spinner}
+    echo -n ' '
     while true; do
         ping -c 1 -W 1 -q "www.google.com" &> /dev/null
         if [ "$?" != "0" ]; then
-            echo -n "."
+            printf '\b%s' "${spinner:i++%n:1}"
             sleep 1
         else
             echo -e "\033[m"
