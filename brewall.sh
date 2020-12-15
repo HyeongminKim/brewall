@@ -230,6 +230,18 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
     else
         echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
     fi
+    if [ -x $executePath/tools/extension.sh ]; then
+        "$executePath/tools/extension.sh"
+        if [ $? != 0 ]; then
+            if [ $LANG == "ko_KR.UTF-8" ]; then
+                echo -e "\033[31m익스텐션을 로드하는 도중 에러가 발생하였습니다. \033[m"
+                echo "[31m[실패][0m " >> $debugPath/brewall_initiated.log
+            else
+                echo -e "\033[31mAn error occurred while loading the extension.\033[m"
+                echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
+            fi
+        fi
+    fi
     endTime=$(date +%s)
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -n "소비 시간: "
