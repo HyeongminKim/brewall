@@ -42,7 +42,6 @@ if [ "$1" == "install" ]; then
             echo -e "\033[0;1m현재 시스템 사양\033[m"
             echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
-            echo "$(which xcode-select)"
 
             echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
             echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
@@ -60,7 +59,6 @@ if [ "$1" == "install" ]; then
             echo -e "\033[0;1mCurrent system specifications\033[m"
             echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
-            echo "$(which xcode-select)"
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
             echo "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
