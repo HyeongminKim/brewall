@@ -133,9 +133,9 @@ elif [ "$1" == "uninstall" ]; then
 
     function removePackage() {
         if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
+            echo -n "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
         else
-            echo -e "Which brew package manager did you install? (H/t) > "
+            echo -n "Which brew package manager did you install? (H/t) > "
         fi
         read n
         if [ "$n" == "t" -o "$n" == "T" ]; then
