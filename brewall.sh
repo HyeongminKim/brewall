@@ -160,7 +160,12 @@ if [ "$?" != "0" ]; then
             printf '\b%s' "${spinner:i++%n:1}"
             sleep 1
         else
-            echo -e "\033[m"
+            printf '\b\b\b\b%s' " "
+            if [ $LANG == "ko_KR.UTF-8" ]; then
+                echo -e "\033[32m연결됨\033[m"
+            else
+                echo -e "\033[32mConnected\033[m"
+            fi
             break
         fi
     done
