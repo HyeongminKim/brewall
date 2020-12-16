@@ -65,7 +65,7 @@ if [ "$1" == "install" ]; then
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
             echo "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
             echo "10.13 or higher recommand"
-            echo -e "Xcode compiler and/or xcode-select require\n"
+            echo -e "Xcode and/or xcode-select require\n"
 
             echo -e "\033[0;1mTigerbrew macOS Requirements\033[m"
             echo "Power PC"
