@@ -13,7 +13,7 @@ function showCommit() {
     fi
     echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
 
-    if [ -z $(git log --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z "$(git log --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit)" ]; then
         echo "" > /dev/null
     else
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -25,7 +25,7 @@ function showCommit() {
         echo "" >> $releasePath/releasenote.txt
     fi
 
-    if [ -z $(git log --grep="UPDATE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z "$(git log --grep="UPDATE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit)" ]; then
         echo "" > /dev/null
     else
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -37,7 +37,7 @@ function showCommit() {
         echo "" >> $releasePath/releasenote.txt
     fi
 
-    if [ -z $(git log --grep="DELETE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+    if [ -z "$(git log --grep="DELETE" --no-merges --pretty=format:"%h" $updated_commit...$last_commit)" ]; then
         echo "" > /dev/null
     else
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -50,7 +50,7 @@ function showCommit() {
     fi
 
     if [ "$(git branch | sed '/* /!d'| sed 's/* //g')" == "nightly" ]; then
-        if [ -z $(git log --grep="TEST" --no-merges --pretty=format:"%h" $updated_commit...$last_commit) ]; then
+        if [ -z "$(git log --grep="TEST" --no-merges --pretty=format:"%h" $updated_commit...$last_commit)" ]; then
             echo "" > /dev/null
         else
             if [ $LANG == "ko_KR.UTF-8" ]; then
