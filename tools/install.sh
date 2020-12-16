@@ -41,7 +41,7 @@ if [ "$1" == "install" ]; then
 
             echo -e "\033[0;1m현재 시스템 사양\033[m"
             echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
-            echo "$(sw_vers -productNames) $(sw_vers -productVersion)"
+            echo "$(sw_vers -productName) $(sw_vers -productVersion)"
             echo "$(which xcode-select)"
 
             echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
@@ -59,7 +59,7 @@ if [ "$1" == "install" ]; then
 
             echo -e "\033[0;1mCurrent system specifications\033[m"
             echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
-            echo "$(sw_vers -productNames) $(sw_vers -productVersion)"
+            echo "$(sw_vers -productName) $(sw_vers -productVersion)"
             echo "$(which xcode-select)"
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
