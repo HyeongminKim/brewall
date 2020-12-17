@@ -14,6 +14,22 @@ fi
 if [ "$1" == "install" ]; then
     ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
     if [ $? != 0 ]; then
+        curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -en "\nbrewall 프로젝트 및 스크립트는 위의 MIT 라이선스에 귀속됩니다. \n 위 라이선스에 동의하십니까? (Y/n) > "
+        else
+            echo -en "\nThe brewall projects and scripts belong to the MIT license above. \nDo you accept the above license? (Y/n) > "
+        fi
+        read n
+        if [ "$n" == "N" -o "$n" == "n" ]; then
+            if [ $LANG == "ko_KR.UTF-8" ]; then
+                echo "라이선스에 동의해야 brewall 프로젝트 및 스크립트를 사용할 수 있습니다. "
+            else
+                echo "You should agree to the license before you can use brewall project and scripts."
+            fi
+            exit 1
+        fi
+
         mkdir ~/Library/Application\ Support/com.greengecko.brewall
         touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -73,15 +89,19 @@ if [ "$1" == "install" ]; then
         fi
         read n
         if [ "$n" == "t" -o "$n" == "T" ]; then
+            echo ""
+            curl -fsSkL https://raw.githubusercontent.com/mistydemeo/tigerbrew/master/LICENSE.txt
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\n\033[0;1mTigerbrew 설치 방법\033[m"
                 echo -e "\033[0;1mhttps://github.com/mistydemeo/tigerbrew\033[m 이 사이트에 들어가서 Tigerbrew를 수동으로 설치하거나"
                 echo "아니면 지금 한번에 설치할 수 있습니다. (제 3자 스크립트를 실행하며 무엇을 할지 설명하고 잠시 대기합니다. )"
+                echo "설치할 경우 라이선스에 동의한 것으로 간주합니다. "
                 echo -n "설치하시겠습니까? (Y/n) > "
             else
                 echo -e "\n\033[0;1mTigerbrew Installation guide\033[m"
                 echo -e "Please enter this site \033[0;1mhttps://github.com/mistydemeo/tigerbrew\033[m and manual install Tigerbrew or "
                 echo "Install now on this script. (Execute Third party script and explains what it will do and then pauses before it does it. )"
+                echo "By installing, you are deemed to have accepted the license."
                 echo -n "Install Tigerbrew now? (Y/n) > "
             fi
             read n
@@ -95,15 +115,19 @@ if [ "$1" == "install" ]; then
             fi
             ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go/install)"
         else
+            echo ""
+            curl -fsSkL https://raw.githubusercontent.com/Homebrew/brew/master/LICENSE.txt
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\n\033[0;1mHomebrew 설치 방법\033[m"
                 echo -e "\033[0;1mhttps://brew.sh/index_ko\033[m 이 사이트에 들어가서 Homebrew를 수동으로 설치하거나"
                 echo "아니면 지금 한번에 설치할 수 있습니다. (제 3자 스크립트를 실행하며 무엇을 할지 설명하고 잠시 대기합니다. )"
+                echo "설치할 경우 라이선스에 동의한 것으로 간주합니다. "
                 echo -n "설치하시겠습니까? (Y/n) > "
             else
                 echo -e "\n\033[0;1mHomebrew Installation guide\033[m"
                 echo -e "Please enter this site \033[0;1mhttps://brew.sh\033[m and manual install Homebrew or "
                 echo "Install now on this script. (Execute Third party script and explains what it will do and then pauses before it does it. )"
+                echo "By installing, you are deemed to have accepted the license."
                 echo -n "Install Homebrew now? (Y/n) > "
             fi
             read n
