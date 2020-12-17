@@ -142,7 +142,7 @@ elif [ "$1" == "uninstall" ]; then
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
         fi
     }
-    if [ "$2" == "--dry-run" ]; then
+    if [ "$2" == "--config" ]; then
         removeConfig
     elif [ "$2" == "--purge" ]; then
         removePackage

@@ -25,7 +25,7 @@
 - runtime: Print previous brewall launch time. 
 - changelog: View update changes
 - remove: brew package manager uninstall.
-    - --dry-run: brewall config remove.
+    - --config: brewall config remove.
     - --purge: brew package manager uninstall and brewall config remove.
 - help: Print this help.
 ### License
