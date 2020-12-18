@@ -118,31 +118,6 @@ function compareTime() {
 
 startTime=$(date +%s)
 
-if [ -x $executePath/tools/install.sh ]; then
-    "$executePath/tools/install.sh" "install"
-    if [ $? != 0 ]; then
-        exit 1
-    fi
-else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[31m의존성 패키지가 제대로 설치되어 있는지 확인할 수 없어 종료합니다. \033[m"
-    else
-        echo -e "\033[31mExited because dependency package couldn't be verified.\033[m"
-    fi
-    exit 1
-fi
-
-if [ -r $debugPath/brewall_initiated.log ]; then
-    cat $debugPath/brewall_initiated.log
-fi
-if [ $LANG == "ko_KR.UTF-8" ]; then
-    echo -n "[33m이전 시간: $(date)[0m " > $debugPath/brewall_initiated.log
-    echo -e "\033[32m시작 시간: $(date)\033[m"
-else
-    echo -n "[33m Previous time: $(date)[0m " > $debugPath/brewall_initiated.log
-    echo -e "\033[32mInitiated time: $(date)\033[m"
-fi
-
 ping -c 1 -W 1 -q "www.google.com" &> /dev/null
 if [ "$?" != "0" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -169,6 +144,31 @@ if [ "$?" != "0" ]; then
             break
         fi
     done
+fi
+
+if [ -x $executePath/tools/install.sh ]; then
+    "$executePath/tools/install.sh" "install"
+    if [ $? != 0 ]; then
+        exit 1
+    fi
+else
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[31m의존성 패키지가 제대로 설치되어 있는지 확인할 수 없어 종료합니다. \033[m"
+    else
+        echo -e "\033[31mExited because dependency package couldn't be verified.\033[m"
+    fi
+    exit 1
+fi
+
+if [ -r $debugPath/brewall_initiated.log ]; then
+    cat $debugPath/brewall_initiated.log
+fi
+if [ $LANG == "ko_KR.UTF-8" ]; then
+    echo -n "[33m이전 시간: $(date)[0m " > $debugPath/brewall_initiated.log
+    echo -e "\033[32m시작 시간: $(date)\033[m"
+else
+    echo -n "[33m Previous time: $(date)[0m " > $debugPath/brewall_initiated.log
+    echo -e "\033[32mInitiated time: $(date)\033[m"
 fi
 
 brew update 2> $debugPath/brew_update_debug.log
