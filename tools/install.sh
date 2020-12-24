@@ -60,7 +60,12 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
 
             echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
-            echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple processor" ]; then
+                echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mRosetta\033[m를 사용하여 실행하였는지 다시 한번 확인하여 주십시오. )"
+                exit 1
+            else
+                echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            fi
             echo "10.13 이상 권장"
             echo -e "Xcode 와/또는 xcode-select 필요\n"
 
@@ -77,7 +82,12 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
-            echo -e "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple processor" ]; then
+                echo -e "64bit Intel CPU (M CPU does not fully support yet. Please double check that you ran it with \033[0;1mRosetta.\033[m)"
+                exit 1
+            else
+                echo -e "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            fi
             echo "10.13 or higher recommand"
             echo -e "Xcode and/or xcode-select require\n"
 
