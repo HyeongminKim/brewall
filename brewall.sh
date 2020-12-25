@@ -164,7 +164,7 @@ if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple M1" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[31mbrew 패키지 매니저는 M CPU 를 지원하지 않습니다. Rosetta를 이용하여 다시 실행하여 주십시오. \033[m"
     else
-        echo -e "\033[31mbrew package manager does not fully support with M CPU. Please rerun Rosetta. \033[m"
+        echo -e "\033[31mbrew package manager does not fully support with M CPU. Please rerun in Rosetta. \033[m"
     fi
     exit 1
 fi
