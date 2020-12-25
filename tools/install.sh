@@ -60,7 +60,7 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
 
             echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
-            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple processor" ]; then
+            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple M1" ]; then
                 echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mRosetta\033[m를 사용하여 실행하였는지 다시 한번 확인하여 주십시오. )"
                 exit 1
             else
@@ -82,7 +82,7 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
-            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple processor" ]; then
+            if [ "$(sysctl -n machdep.cpu.brand_string)" == "Apple M1" ]; then
                 echo -e "64bit Intel CPU (M CPU does not fully support yet. Please double check that you ran it with \033[0;1mRosetta.\033[m)"
                 exit 1
             else
