@@ -63,7 +63,8 @@ function showCommit() {
         fi
     fi
 
-    less -R $releasePath/releasenote.txt
+    # less -R $releasePath/releasenote.txt
+    cat $releasePath/releasenote.txt
 }
 
 if [ $LANG == "ko_KR.UTF-8" ]; then
