@@ -20,7 +20,7 @@
     ```
     chmod 755 foo.sh
     ```
-### Usage: brewall.sh \[option\]
+### Usage: brewall.sh \[command\] \[option\]
 - version: Print this script version and environment version. 
 - runtime: Print previous brewall launch time. 
 - changelog: View update changes

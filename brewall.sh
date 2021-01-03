@@ -43,9 +43,9 @@ elif [ x$1 == x ]; then
 elif [ "$1" == "help" ]; then
     open https://github.com/HyeongminKim/brewall\#usage-brewallsh-option
     if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "사용법: $0 [옵션]"
+        echo "사용법: $0 [명령] [옵션]"
     else
-        echo "USAGE: $0 [OPTION]"
+        echo "USAGE: $0 [COMMAND] [OPTION]"
     fi
     exit 0
 else
