@@ -41,20 +41,11 @@ elif [ "$1" == "remove" ]; then
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
 elif [ "$1" == "help" ]; then
+    open https://github.com/HyeongminKim/brewall\#usage-brewallsh-option
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo "사용법: $0 [옵션]"
-        echo "              version: 스크립트 버전 출력"
-        echo "              runtime: 이전 brewall 시간 출력"
-        echo "            changelog: brewall 업데이트 변경사항 보기"
-        echo "               remove: brew 패키지 관리자 제거 (다른 옵션: --config, --purge)"
-        echo "                 help: 스크립트 도움말 출력"
     else
         echo "USAGE: $0 [OPTION]"
-        echo "              version: Print script version"
-        echo "              runtime: Print previous brewall launch time"
-        echo "            changelog: brewall view update changes"
-        echo "               remove: brew package manager uninstall (other option: --config, --purge)"
-        echo "                 help: Print script help"
     fi
     exit 0
 else
