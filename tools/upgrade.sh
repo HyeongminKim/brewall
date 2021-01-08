@@ -67,6 +67,16 @@ function showCommit() {
     cat $releasePath/releasenote.txt
 }
 
+function donation() {
+    donateLink="https://www.paypal.com/paypalme/hmDonate"
+
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "이 프로젝트에 기부하시고 싶나요? 페이팔에서 기부: \033[4;34m$donateLink\033[m"
+    else
+        echo -e "Would you like to donate to this project? Donate from PayPal: \033[4;34$donateLink\033[m"
+    fi
+}
+
 if [ $LANG == "ko_KR.UTF-8" ]; then
     echo -e "\033[32mbrewall 업데이트중"
 else
@@ -80,6 +90,7 @@ if git pull --rebase --stat origin master; then
         else
             echo -e "\033[34mbreall is already up to date.\033[m"
         fi
+        donation
     else
         updated_version=$(git rev-parse --short HEAD)
         if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -90,6 +101,7 @@ if git pull --rebase --stat origin master; then
             echo -e "You can see the release note again with \033[0;1m$2 changelog\033[m command."
         fi
         echo "$last_version → $updated_version"
+        donation
         showCommit
     fi
 else
