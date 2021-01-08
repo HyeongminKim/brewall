@@ -75,7 +75,11 @@ fi
 if git pull --rebase --stat origin master; then
     updated_commit=$(git rev-parse HEAD)
     if [ "$updated_commit" = "$last_commit" ]; then
-        echo -en "\033[m"
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[34mbrewall은 이미 최신 버전입니다.\033[m"
+        else
+            echo -e "\033[34mbreall is already up to date.\033[m"
+        fi
     else
         updated_version=$(git rev-parse --short HEAD)
         if [ $LANG == "ko_KR.UTF-8" ]; then
