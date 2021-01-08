@@ -73,7 +73,7 @@ function donation() {
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "이 프로젝트에 기부하시고 싶나요? 페이팔에서 기부: \033[4;34m$donateLink\033[m"
     else
-        echo -e "Would you like to donate to this project? Donate from PayPal: \033[4;34$donateLink\033[m"
+        echo -e "Would you like to donate to this project? Donate from PayPal: \033[4;34m$donateLink\033[m"
     fi
 }
 
