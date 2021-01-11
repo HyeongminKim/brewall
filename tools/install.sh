@@ -30,7 +30,7 @@ function checkVersion() {
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[34mbrewall은 이미 최신 버전입니다.\033[m"
             else
-                echo -e "\033[34mbreall is already up to date.\033[m"
+                echo -e "\033[34mbrewall is already up to date.\033[m"
             fi
         else
             updated_version=$(git rev-parse --short HEAD)
@@ -38,7 +38,7 @@ function checkVersion() {
                 echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
                 echo -e "변경 사항을 적용하기 위해 다시 실행하여 주세요. "
             else
-                echo -e "\033[34mbreall has been updated. \033[m"
+                echo -e "\033[34mbrewall has been updated. \033[m"
                 echo -e "Please run again to apply the changes."
             fi
             exit 2
