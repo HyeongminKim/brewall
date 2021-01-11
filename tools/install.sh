@@ -1,6 +1,7 @@
 #!/bin/bash
 
 debugPath=~/Library/Logs/Homebrew
+executePath=$(echo $0 | sed "s/\/tools\/install.sh//g")
 versionChecked=false
 
 if [ "$(uname -s)" != "Darwin" ]; then
@@ -16,6 +17,7 @@ function checkVersion() {
     if [ $versionChecked == true ]; then
         return
     fi
+    cd $executePath
     versionChecked=true
 
     last_commit=$(git rev-parse HEAD)
