@@ -140,7 +140,7 @@ fi
 if [ -x $executePath/tools/install.sh ]; then
     "$executePath/tools/install.sh" "install"
     if [ $? != 0 ]; then
-        exit 1
+        exit $?
     fi
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then

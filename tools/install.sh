@@ -1,6 +1,7 @@
 #!/bin/bash
 
 debugPath=~/Library/Logs/Homebrew
+versionChecked=false
 
 if [ "$(uname -s)" != "Darwin" ]; then
     if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -11,9 +12,51 @@ if [ "$(uname -s)" != "Darwin" ]; then
     exit 1
 fi
 
+function checkVersion() {
+    if [ $versionChecked == true ]; then
+        return
+    fi
+    versionChecked=true
+
+    last_commit=$(git rev-parse HEAD)
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[32mbrewall 업데이트중\033[m"
+    else
+        echo -e "\033[32mUpdating brewall\033[m"
+    fi
+    if git pull --rebase --stat origin master; then
+        updated_commit=$(git rev-parse HEAD)
+        if [ "$updated_commit" = "$last_commit" ]; then
+            if [ $LANG == "ko_KR.UTF-8" ]; then
+                echo -e "\033[34mbrewall은 이미 최신 버전입니다.\033[m"
+            else
+                echo -e "\033[34mbreall is already up to date.\033[m"
+            fi
+        else
+            updated_version=$(git rev-parse --short HEAD)
+            if [ $LANG == "ko_KR.UTF-8" ]; then
+                echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
+                echo -e "변경 사항을 적용하기 위해 다시 실행하여 주세요. "
+            else
+                echo -e "\033[34mbreall has been updated. \033[m"
+                echo -e "Please run again to apply the changes."
+            fi
+            exit 2
+        fi
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "\033[31m에러가 발생하였습니다. 잠시후 다시 시도하시겠습니까?\033[m"
+        else
+            echo -e "\033[31mThere was an error occured. Try again later?\033[m"
+        fi
+        exit 1
+    fi
+}
+
 if [ "$1" == "install" ]; then
     ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
     if [ $? != 0 ]; then
+        checkVersion
         curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -en "\nbrewall 프로젝트 및 스크립트는 위의 MIT 라이선스에 귀속됩니다. \n 위 라이선스에 동의하십니까? (Y/n) > "
@@ -52,6 +95,7 @@ if [ "$1" == "install" ]; then
 
     which brew > /dev/null 2>&1
     if [ $? != 0 ]; then
+        checkVersion
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo "이 brewall 스크립트는 brew 패키지 관리자를 더 사용하기 쉽도록 하는 도구이며 이들이 필수적으로 필요합니다. "
 
