@@ -19,15 +19,17 @@ function checkVersion() {
     fi
     versionChecked=true
     "$executePath/tools/upgrade.sh" "$executePath"
-    if [ $? == 2 ]; then
+    if [ $? == 0 ]; then
+        return
+    elif [ $? == 1 ]; then
+        exit 1
+    else
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[33m변경 사항을 적용하기 위해 다시 실행하여 주세요. \033[m"
         else
             echo -e "\033[33mPlease run again to apply the changes.\033[m"
         fi
         exit 2
-    elif [ $? == 1 ]; then
-        exit 1
     fi
 }
 
