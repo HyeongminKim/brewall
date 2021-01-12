@@ -199,7 +199,7 @@ else
     else
         echo -e "\033[31mAn error occurred during automatic update. By going manually\033[m"
     fi
-    echo "https://github.com/HyeongminKim/brewall"
+    open https://github.com/HyeongminKim/brewall
 fi
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
