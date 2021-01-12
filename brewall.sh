@@ -192,7 +192,7 @@ else
 fi
 
 if [ -x $executePath/tools/upgrade.sh ]; then
-    "$executePath/tools/upgrade.sh" "$executePath" "$0"
+    "$executePath/tools/upgrade.sh" "$executePath"
 else
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[31m자동 업데이트 도중 에러가 발생하였습니다. 수동으로 진행하여 주세요\033[m"
