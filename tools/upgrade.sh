@@ -3,9 +3,16 @@
 cd $1
 last_commit=$(git rev-parse HEAD)
 last_version=$(git rev-parse --short HEAD)
+dirCreated=false
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
+    if [ -d $releasePath ]; then
+        echo "" > /dev/null
+    else
+        mkdir ~/Library/Logs/Homebrew
+        dirCreated=true
+    fi
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[0;1m업데이트 채널\033[m" > $releasePath/releasenote.txt
     else
@@ -104,6 +111,9 @@ if git pull --rebase --stat origin master; then
         echo "$last_version → $updated_version"
         donation
         showCommit
+        if [ $dirCreated == true ]; then
+            rm -rf ~/Library/Logs/Homebrew
+        fi
         exit 2
     fi
 else
