@@ -4,6 +4,7 @@ cd $1
 last_commit=$(git rev-parse HEAD)
 last_version=$(git rev-parse --short HEAD)
 dirCreated=false
+cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
@@ -18,7 +19,7 @@ function showCommit() {
     else
         echo -e "\033[0;1mUpdate channel\033[m" > $releasePath/releasenote.txt
     fi
-    echo -e "\033[0;4m$(git branch | sed '/* /!d'| sed 's/* //g')\033[m\n" >> $releasePath/releasenote.txt
+    echo -e "\033[0;4m$cntBranch\033[m\n" >> $releasePath/releasenote.txt
 
     if [ -z "$(git log -1 --grep="ADD" --no-merges --pretty=format:"%h" $updated_commit...$last_commit)" ]; then
         echo "" > /dev/null
@@ -89,7 +90,7 @@ if [ $LANG == "ko_KR.UTF-8" ]; then
 else
     echo -e "\033[32mUpdating brewall"
 fi
-if git pull --rebase --stat origin master; then
+if git pull --rebase --stat origin $cntBranch; then
     updated_commit=$(git rev-parse HEAD)
     if [ "$updated_commit" = "$last_commit" ]; then
         if [ $LANG == "ko_KR.UTF-8" ]; then
