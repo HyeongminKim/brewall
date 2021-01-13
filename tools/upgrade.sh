@@ -104,10 +104,14 @@ if git pull --rebase --stat origin $cntBranch; then
         updated_version=$(git rev-parse --short HEAD)
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
-            echo -e "release note를 다시 보시려면 \033[0;1m$1/brewall.sh changelog\033[m 명령을 사용하십시오."
+            if [ $dirCreated == false ]; then
+                echo -e "release note를 다시 보시려면 \033[0;1m$1/brewall.sh changelog\033[m 명령을 사용하십시오."
+            fi
         else
             echo -e "\033[34mbrewall has been updated. \033[m"
-            echo -e "You can see the release note again with \033[0;1m$1/brewall.sh changelog\033[m command."
+            if [ $dirCreated == false ]; then
+                echo -e "You can see the release note again with \033[0;1m$1/brewall.sh changelog\033[m command."
+            fi
         fi
         echo "$last_version → $updated_version"
         donation
