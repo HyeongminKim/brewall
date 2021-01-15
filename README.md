@@ -29,8 +29,9 @@
     - --purge: brew package manager uninstall and brewall config remove.
 - help: Print this help.
 ### Update channels
-- You can check the supported update channels with the `git branch` command.
-- You can change the update channel with the ``git checkout <branch>`` command.
+- First, run the ``git remote update`` command to access the remote branch.
+- You can check the supported update channels with the `git branch -r` command.
+- You can change the update channel with the ``git checkout -t origin/<branch>`` command.
 ### Description of the script used
 |File Name|Note|
 |:----:|:-----|
