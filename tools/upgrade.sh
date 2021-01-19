@@ -102,6 +102,7 @@ if git pull --rebase --stat origin $cntBranch; then
         exit 0
     else
         updated_version=$(git rev-parse --short HEAD)
+        showCommit
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo -e "\033[34mbrewall이 성공적으로 업데이트 되었습니다.\033[m"
             if [ $dirCreated == false ]; then
@@ -115,7 +116,6 @@ if git pull --rebase --stat origin $cntBranch; then
         fi
         echo "$last_version → $updated_version"
         donation
-        showCommit
         if [ $dirCreated == true ]; then
             rm -rf ~/Library/Logs/Homebrew
         fi
