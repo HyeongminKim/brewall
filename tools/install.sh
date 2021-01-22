@@ -84,15 +84,13 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
 
             echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
-            echo -e "64비트 인텔 CPU (M CPU는 아직 완전히 지원되지 않습니다. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            echo -e "64비트 인텔 CPU 또는 M CPU"
             echo "10.13 이상 권장"
             echo -e "Xcode 와/또는 xcode-select 필요\n"
 
             echo -e "\033[0;1mTigerbrew macOS 요구사항\033[m"
             echo "Power PC"
             echo -e "Tiger or Leopard 권장\n"
-
-            echo -n "어떤 패키지 관리자를 설치하시겠습니까? (H/t) > "
         else
             echo "This brewall script require brew. Because extend of these tools."
 
@@ -101,18 +99,15 @@ if [ "$1" == "install" ]; then
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
-            echo -e "64bit Intel CPU (M CPU does not fully support yet. \033[0;1mhttps://github.com/Homebrew/brew/issues/7857\033[m)"
+            echo -e "64bit Intel CPU or M CPU"
             echo "10.13 or higher recommand"
             echo -e "Xcode and/or xcode-select require\n"
 
             echo -e "\033[0;1mTigerbrew macOS Requirements\033[m"
             echo "Power PC"
             echo -e "Tiger or Leopard recommand\n"
-
-            echo -n "What would you like install brew package? (H/t) > "
         fi
-        read n
-        if [ "$n" == "t" -o "$n" == "T" ]; then
+        if [ $(echo "if ($(sw_vers -productVersion) < 10.6) 1 else 0" | bc -l) -eq 1 ]; then
             echo ""
             curl -fsSkL https://raw.githubusercontent.com/mistydemeo/tigerbrew/master/LICENSE.txt
             if [ $LANG == "ko_KR.UTF-8" ]; then
@@ -178,18 +173,9 @@ elif [ "$1" == "uninstall" ]; then
     }
 
     function removePackage() {
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -n "어떤 brew 패키지 관리자를 설치하셨습니까? (H/t) > "
-        else
-            echo -n "Which brew package manager did you install? (H/t) > "
-        fi
-        read n
-        if [ "$n" == "t" -o "$n" == "T" ]; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-        else
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
-        fi
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
     }
+
     if [ "$2" == "--config" ]; then
         removeConfig
     elif [ "$2" == "--purge" ]; then
