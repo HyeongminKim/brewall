@@ -107,7 +107,7 @@ if [ "$1" == "install" ]; then
             echo "Power PC"
             echo -e "Tiger or Leopard recommand\n"
         fi
-        if [ $(echo "if ($(echo $((16#$(sw_vers -buildVersion)))) < $(echo $((16#9A581)))) 1 else 0" | bc -l) -eq 1 ]; then
+        if [ $(sw_vers -productVersion) == 10.[56].* ]; then
             echo ""
             curl -fsSkL https://raw.githubusercontent.com/mistydemeo/tigerbrew/master/LICENSE.txt
             if [ $LANG == "ko_KR.UTF-8" ]; then
