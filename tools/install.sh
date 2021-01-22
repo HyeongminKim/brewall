@@ -158,7 +158,11 @@ if [ "$1" == "install" ]; then
                 fi
                 exit 1
             fi
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            if [ "$(uname -m)" == "arm64" ]; then
+                arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            else
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            fi
         fi
     fi
 elif [ "$1" == "uninstall" ]; then
@@ -173,7 +177,11 @@ elif [ "$1" == "uninstall" ]; then
     }
 
     function removePackage() {
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+        if [ "$(uname -m)" == "arm64" ]; then
+            arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        else
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        fi
     }
 
     if [ "$2" == "--config" ]; then
