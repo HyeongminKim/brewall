@@ -162,28 +162,44 @@ else
     echo -e "\033[32mInitiated time: $(date)\033[m"
 fi
 
-brew update 2> $debugPath/brew_update_debug.log
+if [ "$(uname -m)" == "arm64" ]; then
+    arch -x86_64 brew update 2> $debugPath/brew_update_debug.log
+else
+    brew update 2> $debugPath/brew_update_debug.log
+fi
 if [ "$?" != "0" ]; then
     update=true
     cat $debugPath/brew_update_debug.log
 else
     rm $debugPath/brew_update_debug.log
 fi
-brew upgrade 2> $debugPath/brew_upgrade_debug.log
+if [ "$(uname -m)" == "arm64" ]; then
+    arch -x86_64 brew upgrade 2> $debugPath/brew_upgrade_debug.log
+else
+    brew upgrade 2> $debugPath/brew_upgrade_debug.log
+fi
 if [ "$?" != "0" ]; then
     upgrade=true
     cat $debugPath/brew_upgrade_debug.log
 else
     rm $debugPath/brew_upgrade_debug.log
 fi
-brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+if [ "$(uname -m)" == "arm64" ]; then
+    arch -x86_64 brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+else
+    brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+fi
 if [ "$?" != "0" ]; then
     cleanup=true
     cat $debugPath/brew_cleanup_debug.log
 else
     rm $debugPath/brew_cleanup_debug.log
 fi
-brew doctor 2> $debugPath/brew_doctor_debug.log
+if [ "$(uname -m)" == "arm64" ]; then
+    arch -x86_64 brew doctor 2> $debugPath/brew_doctor_debug.log
+else
+    brew doctor 2> $debugPath/brew_doctor_debug.log
+fi
 if [ "$?" != "0" ]; then
     doctor=true
     cat $debugPath/brew_doctor_debug.log
