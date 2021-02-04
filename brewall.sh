@@ -75,18 +75,18 @@ function calcTime() {
 }
 
 function compareTime() {
-    currenrtElapsedTime=$elapsedTime
+    currentElapsedTime=$elapsedTime
     if [ -r $debugPath/ElapsedTime.txt ]; then
         previousElapsedTime=$(cat $debugPath/ElapsedTime.txt 2> /dev/null)
-        if [ $previousElapsedTime -gt $currenrtElapsedTime ]; then
-            result=$(($previousElapsedTime-$currenrtElapsedTime))
+        if [ $previousElapsedTime -gt $currentElapsedTime ]; then
+            result=$(($previousElapsedTime-$currentElapsedTime))
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[34m▼ $result 초\033[m"
             else
                 echo -e "\033[31m▼ $result sec\033[m"
             fi
-        elif [ $previousElapsedTime -lt $currenrtElapsedTime ]; then
-            result=$(($currenrtElapsedTime-$previousElapsedTime))
+        elif [ $previousElapsedTime -lt $currentElapsedTime ]; then
+            result=$(($currentElapsedTime-$previousElapsedTime))
             if [ $LANG == "ko_KR.UTF-8" ]; then
                 echo -e "\033[31m▲ $result 초\033[m"
             else

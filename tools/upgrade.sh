@@ -71,7 +71,7 @@ else
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo -e "\033[31m에러가 발생하였습니다. 잠시후 다시 시도하시겠습니까?\033[m"
     else
-        echo -e "\033[31mThere was an error occured. Try again later?\033[m"
+        echo -e "\033[31mThere was an error occurred. Try again later?\033[m"
     fi
     exit 1
 fi

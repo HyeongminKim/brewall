@@ -100,12 +100,12 @@ if [ "$1" == "install" ]; then
             
             echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
             echo -e "64bit Intel CPU or M CPU"
-            echo "10.13 or higher recommand"
+            echo "10.13 or higher recommend"
             echo -e "Xcode and/or xcode-select require\n"
 
             echo -e "\033[0;1mTigerbrew macOS Requirements\033[m"
             echo "Power PC"
-            echo -e "Tiger or Leopard recommand\n"
+            echo -e "Tiger or Leopard recommend\n"
         fi
         if [ $(sw_vers -productVersion) == 10.[45].* ]; then
             echo ""
