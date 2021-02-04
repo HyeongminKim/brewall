@@ -23,9 +23,9 @@ elif [ "$1" == "runtime" ]; then
     fi
     exit 0
 elif [ "$1" == "changelog" ]; then
-    if [ -r $debugPath/cntRevision.txt -a -r $debugPath/updatedRevision.txt ]; then
-        cntRevision="$(cat $debugPath/cntRevision)"
-        updatedRevision="$(cat $debugPath/updatedRevision)"
+    if [ -r $debugPath/cntRevision.txt ] && [ -r $debugPath/updatedRevision.txt ]; then
+        cntRevision="$(echo $debugPath/cntRevision)"
+        updatedRevision="$(echo $debugPath/updatedRevision)"
 
         "$executePath/tools/changelog.sh" "executePath" "$cntRevision" "$updatedRevision"
     fi

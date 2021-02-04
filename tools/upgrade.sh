@@ -5,7 +5,7 @@ last_commit=$(git rev-parse HEAD)
 last_version=$(git rev-parse --short HEAD)
 dirCreated=false
 cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
-executePath=$(echo $0 | sed "s/\/tools\/upgrade.sh//g")
+executePath=$1
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
