@@ -1,7 +1,9 @@
 #!/bin/bash
 
-beforeCommit="$1"
-updatedCommit="$2"
+cd $1
+
+beforeCommit="$2"
+updatedCommit="$3"
 cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
 releasePath=~/Library/Logs/Homebrew
 
