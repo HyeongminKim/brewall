@@ -24,10 +24,10 @@ elif [ "$1" == "runtime" ]; then
     exit 0
 elif [ "$1" == "changelog" ]; then
     if [ -r $debugPath/cntRevision.txt ] && [ -r $debugPath/updatedRevision.txt ]; then
-        cntRevision="$(echo $debugPath/cntRevision)"
-        updatedRevision="$(echo $debugPath/updatedRevision)"
+        cntRevision="$(cat $debugPath/cntRevision.txt)"
+        updatedRevision="$(cat $debugPath/updatedRevision.txt)"
 
-        "$executePath/tools/changelog.sh" "executePath" "$cntRevision" "$updatedRevision"
+        "$executePath/tools/changelog.sh" "$executePath" "$cntRevision" "$updatedRevision"
     fi
     exit 0
 elif [ "$1" == "remove" ]; then

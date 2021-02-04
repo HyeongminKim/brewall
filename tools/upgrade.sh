@@ -15,7 +15,7 @@ function showCommit() {
         mkdir ~/Library/Logs/Homebrew
         dirCreated=true
     fi
-    "$executePath/tools/extension.sh" "$executePath" "$1" "$2"
+    "$executePath/tools/changelog.sh" "$executePath" "$1" "$2"
 
     echo $1 > $releasePath/cntRevision.txt
     echo $2 > $releasePath/updatedRevision.txt
