@@ -23,8 +23,11 @@ elif [ "$1" == "runtime" ]; then
     fi
     exit 0
 elif [ "$1" == "changelog" ]; then
-    if [ -r $debugPath/releasenote.txt ]; then
-        less -R $debugPath/releasenote.txt
+    if [ -r $debugPath/cntRevision.txt -a -r $debugPath/updatedRevision.txt ]; then
+        cntRevision="$(cat $debugPath/cntRevision)"
+        updatedRevision="$(cat $debugPath/updatedRevision)"
+
+        "$executePath/tools/extension.sh" "$cntRevision" "$updatedRevision"
     fi
     exit 0
 elif [ "$1" == "remove" ]; then
