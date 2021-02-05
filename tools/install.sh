@@ -13,6 +13,12 @@ if [ "$(uname -s)" != "Darwin" ]; then
     exit 1
 fi
 
+xcode-select --print-path > /dev/null 2>&1
+if [ $? != 0 ]; then
+    xcode-select --install
+    exit 0
+fi
+
 function checkVersion() {
     if [ $versionChecked == true ]; then
         return
