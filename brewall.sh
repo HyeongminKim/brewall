@@ -13,9 +13,27 @@ if [ "$1" == "version" ]; then
     echo -e "brewall (git revision $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"))\nCopyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
-    brew --version
+    which brew > /dev/null 2>&1
+    if [ $? == 0 ]; then
+        brew --version
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo "brew가 설치되어 있지 않거나 감지되지 않았습니다. "
+        else
+            echo "brew is not installed or not detected."
+        fi
+    fi
     echo ""
-    git --version
+    which git > /dev/null 2>&1
+    if [ $? == 0 ]; then
+        git --version
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo "git이 설치되어 있지 않거나 감지되지 않았습니다. "
+        else
+            echo "git is not installed or not detected."
+        fi
+    fi
     exit 0
 elif [ "$1" == "runtime" ]; then
     if [ -r $debugPath/brewall_initiated.log ]; then
