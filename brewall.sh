@@ -62,7 +62,10 @@ elif [ "$1" == "remove" ]; then
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
 elif [ "$1" == "help" ]; then
-    open https://github.com/HyeongminKim/brewall\#usage-brewallsh-command-option
+    open https://github.com/HyeongminKim/brewall\#usage-brewallsh-command-option 2> /dev/null
+    if [ $? != 0 ]; then
+        echo "URL: https://github.com/HyeongminKim/brewall\#usage-brewallsh-command-option"
+    fi
     if [ $LANG == "ko_KR.UTF-8" ]; then
         echo "사용법: $0 [명령] [옵션]"
     else
