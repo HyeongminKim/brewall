@@ -1,6 +1,7 @@
 #!/bin/bash
 
 debugPath=~/Library/Logs/Homebrew
+brewPath=
 update=false
 upgrade=false
 cleanup=false
@@ -175,6 +176,8 @@ else
     exit 1
 fi
 
+brewPath=$(which brew 2> /dev/null)
+
 if [ -r $debugPath/brewall_initiated.log ]; then
     cat $debugPath/brewall_initiated.log
 fi
@@ -187,7 +190,11 @@ else
 fi
 
 if [ "$(uname -m)" == "arm64" ]; then
-    arch -x86_64 brew update 2> $debugPath/brew_update_debug.log
+    if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
+        arch -x86_64 brew update 2> $debugPath/brew_update_debug.log
+    else
+        brew update 2> $debugPath/brew_update_debug.log
+    fi
 else
     brew update 2> $debugPath/brew_update_debug.log
 fi
@@ -197,8 +204,14 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_update_debug.log
 fi
+
+
 if [ "$(uname -m)" == "arm64" ]; then
-    arch -x86_64 brew upgrade 2> $debugPath/brew_upgrade_debug.log
+    if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
+        arch -x86_64 brew upgrade 2> $debugPath/brew_upgrade_debug.log
+    else
+        brew upgrade 2> $debugPath/brew_upgrade_debug.log
+    fi
 else
     brew upgrade 2> $debugPath/brew_upgrade_debug.log
 fi
@@ -208,8 +221,14 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_upgrade_debug.log
 fi
+
+
 if [ "$(uname -m)" == "arm64" ]; then
-    arch -x86_64 brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+    if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
+        arch -x86_64 brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+    else
+        brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
+    fi
 else
     brew cleanup -s 2> $debugPath/brew_cleanup_debug.log
 fi
@@ -219,8 +238,14 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_cleanup_debug.log
 fi
+
+
 if [ "$(uname -m)" == "arm64" ]; then
-    arch -x86_64 brew doctor 2> $debugPath/brew_doctor_debug.log
+    if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
+        arch -x86_64 brew doctor 2> $debugPath/brew_doctor_debug.log
+    else
+        brew doctor 2> $debugPath/brew_doctor_debug.log
+    fi
 else
     brew doctor 2> $debugPath/brew_doctor_debug.log
 fi
@@ -230,6 +255,7 @@ if [ "$?" != "0" ]; then
 else
     rm $debugPath/brew_doctor_debug.log
 fi
+
 
 if [ -x $executePath/tools/upgrade.sh ]; then
     "$executePath/tools/upgrade.sh" "$executePath"

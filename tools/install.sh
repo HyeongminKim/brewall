@@ -165,7 +165,17 @@ if [ "$1" == "install" ]; then
                 exit 1
             fi
             if [ "$(uname -m)" == "arm64" ]; then
-                arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                if [ $LANG == "ko_KR.UTF-8" ]; then
+                    echo "Native 버전으로 설치하시겠습니까? (Y/n) > "
+                else
+                    echo "Would you like to install the Native version? (Y/n) > "
+                fi
+                read n
+                if [ "$n" == "n" -o "$n" == "N" ]; then
+                    arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                else
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                fi
             else
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
             fi
@@ -184,7 +194,11 @@ elif [ "$1" == "uninstall" ]; then
 
     function removePackage() {
         if [ "$(uname -m)" == "arm64" ]; then
-            arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
+                arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            else
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            fi
         else
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
