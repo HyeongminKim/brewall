@@ -166,9 +166,9 @@ if [ "$1" == "install" ]; then
             fi
             if [ "$(uname -m)" == "arm64" ]; then
                 if [ $LANG == "ko_KR.UTF-8" ]; then
-                    echo "Native 버전으로 설치하시겠습니까? (Y/n) > "
+                    echo -n "Native 버전으로 설치하시겠습니까? (Y/n) > "
                 else
-                    echo "Would you like to install the Native version? (Y/n) > "
+                    echo -n "Would you like to install the Native version? (Y/n) > "
                 fi
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
