@@ -11,7 +11,8 @@ executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
 if [ "$1" == "version" ]; then
     cd $executePath
-    echo -e "brewall (git revision $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"))\nCopyright (c) 2020 Hyeongmin Kim\n"
+    echo -e "brewall (git revision $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') build)"
+    echo -e "Copyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
     which brew > /dev/null 2>&1
