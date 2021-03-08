@@ -16,7 +16,12 @@ fi
 xcode-select --print-path > /dev/null 2>&1
 if [ $? != 0 ]; then
     xcode-select --install
-    exit 0
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[33mxcode-select 설치를 끝낸 후 다시 실행하여 주세요. \033[m"
+    else
+        echo -e "\033[33mAfter you finish installing xcode-select, run it again.\033[m"
+    fi
+    exit 2
 fi
 
 function checkVersion() {
