@@ -304,6 +304,12 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
                 echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
             fi
         fi
+    else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo "추가 명령을 실행하고 싶으시면 extension.sh 파일을 $executePath/tools 디렉토리 안에 두십시오. "
+        else
+            echo "If you want to run additional commands, place the extension.sh file in the $executePath/tools directory."
+        fi
     fi
     endTime=$(date +%s)
     if [ $LANG == "ko_KR.UTF-8" ]; then
