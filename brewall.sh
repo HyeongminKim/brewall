@@ -306,9 +306,9 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
         fi
     else
         if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "추가 명령을 실행하고 싶으시면 extension.sh 파일을 $executePath/tools 디렉토리 안에 두십시오. "
+            echo -e "추가 명령을 실행하고 싶으시면 extension.sh 파일을 \033[0;1m$executePath/tools\033[m 디렉토리 안에 두십시오. "
         else
-            echo "If you want to run additional commands, place the extension.sh file in the $executePath/tools directory."
+            echo -e "If you want to run additional commands, place the extension.sh file in the \033[0;1m$executePath/tools\033[m directory."
         fi
     fi
     endTime=$(date +%s)
@@ -362,6 +362,11 @@ else
             exit 1
         fi
     else
+        if [ $LANG == "ko_KR.UTF-8" ]; then
+            echo -e "추가 명령을 실행하고 싶으시면 extension.sh 파일을 \033[0;1m$executePath/tools\033[m 디렉토리 안에 두십시오. "
+        else
+            echo -e "If you want to run additional commands, place the extension.sh file in the \033[0;1m$executePath/tools\033[m directory."
+        fi
         if [ $LANG == "ko_KR.UTF-8" ]; then
             echo "[34m[성공][0m " >> $debugPath/brewall_initiated.log
         else
