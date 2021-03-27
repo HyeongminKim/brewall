@@ -73,7 +73,6 @@ if [ "$(git branch | sed '/* /!d'| sed 's/* //g')" == "nightly" ]; then
     fi
 fi
 
-# less -R $releasePath/releasenote.txt
 cat $releasePath/releasenote.txt
 
 rm $releasePath/releasenote.txt
