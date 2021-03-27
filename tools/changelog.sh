@@ -26,6 +26,13 @@ else
     echo -e "\033[0;1mUpdate channel\033[m" > $releasePath/releasenote.txt
 fi
 echo -e "\033[0;4m$cntBranch\033[m\n" >> $releasePath/releasenote.txt
+if [ "$cntBranch" == "nightly" ]; then
+    if [ $LANG == "ko_KR.UTF-8" ]; then
+        echo -e "\033[33m경고: nightly 채널은 불안정합니다. 이 채널을 사용할 경우 예기치 않은 동작 또는 파일 유실, 더미 파일 생성 등이 나타날 수 있습니다.\033[m" > $releasePath/releasenote.txt
+    else
+        echo -e "\033[33mWarning: The nightly channel is unstable. Using this channel can lead to unexpected behavior or loss of files, dummy file creation, etc.\033[m" > $releasePath/releasenote.txt
+    fi
+fi
 
 if [ -z "$(git log -1 --grep="ADD" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
     echo "" > /dev/null
