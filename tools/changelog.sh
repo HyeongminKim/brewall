@@ -1,11 +1,12 @@
 #!/bin/bash
 
-cd $1
-
-beforeCommit="$2"
-updatedCommit="$3"
+beforeCommit="$1"
+updatedCommit="$2"
+executePath=$(echo $0 | sed "s/\/tools\/changelog.sh//g")
 cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
 releasePath=~/Library/Logs/Homebrew
+
+cd $executePath
 
 function releaseCommitFormatter() {
     git log --stat --color --grep="$1" --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updatedCommit...$beforeCommit >> $releasePath/releasenote.txt

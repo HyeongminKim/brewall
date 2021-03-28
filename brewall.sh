@@ -48,7 +48,7 @@ elif [ "$1" == "changelog" ]; then
         cntRevision="$(cat $debugPath/cntRevision.txt)"
         updatedRevision="$(cat $debugPath/updatedRevision.txt)"
 
-        "$executePath/tools/changelog.sh" "$executePath" "$cntRevision" "$updatedRevision"
+        "$executePath/tools/changelog.sh" "$cntRevision" "$updatedRevision"
     fi
     exit 0
 elif [ "$1" == "remove" ]; then

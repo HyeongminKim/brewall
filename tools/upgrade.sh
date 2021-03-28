@@ -1,11 +1,12 @@
 #!/bin/bash
 
-cd $1
 last_commit=$(git rev-parse HEAD)
 last_version=$(git rev-parse --short HEAD)
-dirCreated=false
+executePath=$(echo $0 | sed "s/\/tools\/upgrade.sh//g")
 cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
-executePath=$1
+dirCreated=false
+
+cd $executePath
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
@@ -15,7 +16,7 @@ function showCommit() {
         mkdir ~/Library/Logs/Homebrew
         dirCreated=true
     fi
-    "$executePath/tools/changelog.sh" "$executePath" "$1" "$2"
+    "$executePath/tools/changelog.sh" "$1" "$2"
 
     echo $1 > $releasePath/cntRevision.txt
     echo $2 > $releasePath/updatedRevision.txt
