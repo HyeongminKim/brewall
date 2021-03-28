@@ -9,8 +9,9 @@ doctor=false
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
 
+cd $executePath
+
 if [ "$1" == "version" ]; then
-    cd $executePath
     echo -e "brewall (git revision $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') build)"
     echo -e "Copyright (c) 2020 Hyeongmin Kim\n"
     bash --version
