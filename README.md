@@ -13,6 +13,13 @@
     ```
     git clone https://github.com/HyeongminKim/brewall.git [destination]
     ```
+- Please add below command to your default shell config file
+
+    ```
+    brewall() {
+      <shell script destination> $@
+    }
+    ```
 - Now enjoy it
 ### Trouble shooting
 - If you see the **permission denied** error message run command like below.
