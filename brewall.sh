@@ -8,11 +8,30 @@ cleanup=false
 doctor=false
 elapsedTime=
 executePath=$(echo $0 | sed "s/\/brewall.sh//g")
+simpleLANG=$(cut -f 1 -d '.' <<< $LANG)
 
 cd $executePath
 
+function English() {
+    source $executePath/localization/en_US/brewall_en-US.sh
+}
+
+function Korean() {
+    source $executePath/localization/ko_KR/brewall_ko-KR.sh
+}
+
+if [ $simpleLANG == "ko_KR" ]; then
+    echo "brew가 설치되어 있지 않거나 감지되지 않았습니다. "
+elif [ $simpleLANG == "en_US" ]; then
+    English
+else
+    echo -e "\033[33mWarning\033[m: $LANG is not supported at this time."
+    echo "The default language will be English."
+    English
+fi
+
 if [ "$1" == "version" ]; then
-    echo -e "brewall (git revision $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') build)"
+    echo -e "brewall ($GIT_REVISION $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') build)"
     echo -e "Copyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
