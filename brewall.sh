@@ -266,7 +266,6 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
     echo -n "$TIME_USE"
     calcTime $endTime $startTime
     compareTime
-    exit 1
 else
     echo -e "$OK_TITLE"
     if [ -x $executePath/tools/extension.sh ]; then
@@ -277,7 +276,6 @@ else
             echo -n "$TIME_USE"
             calcTime $endTime $startTime
             compareTime
-            exit 0
         else
             echo -e "$ERR_EXTENSION"
             echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
@@ -285,7 +283,6 @@ else
             echo -n "$TIME_USE"
             calcTime $endTime $startTime
             compareTime
-            exit 1
         fi
     else
         echo -e "$EXTENSION_INFO_FRONT $executePath $EXTENSION_INFO_BACK"
@@ -294,6 +291,5 @@ else
         echo -n "$TIME_USE"
         calcTime $endTime $startTime
         compareTime
-        exit 0
     fi
 fi
