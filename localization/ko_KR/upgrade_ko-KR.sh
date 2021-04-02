@@ -1,5 +1,5 @@
 ##### Donate #####
-export DONATE_PAYPAL_FRONT="이 프로젝트에 기부하시고 싶나요? 페이팔에서 기부:\033[4;34m"
+export DONATE_PAYPAL_FRONT="이 프로젝트에 기부하시고 싶나요? 페이팔에서 기부: \033[4;34m"
 export DONATE_PAYPAL_BACK="\033[m"
 
 

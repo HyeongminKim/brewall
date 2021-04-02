@@ -25,7 +25,7 @@ function showCommit() {
 function donation() {
     donateLink="https://www.paypal.com/paypalme/hmDonate"
 
-    echo -e "$DONATE_PAYPAL_FRONT $donateLink $DONATE_PAYPAL_BACK"
+    echo -e "$DONATE_PAYPAL_FRONT$donateLink$DONATE_PAYPAL_BACK"
 }
 
 echo -e "$NOW_UPDATE"

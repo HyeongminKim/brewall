@@ -1,5 +1,5 @@
 ##### Donate #####
-export DONATE_PAYPAL_FRONT="Would you like to donate to this project? Donate from PayPal:\033[4;34m"
+export DONATE_PAYPAL_FRONT="Would you like to donate to this project? Donate from PayPal: \033[4;34m"
 export DONATE_PAYPAL_BACK="\033[m"
 
 

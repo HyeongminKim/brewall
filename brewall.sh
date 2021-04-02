@@ -260,7 +260,7 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
             echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
         fi
     else
-        echo -e "$EXTENSION_INFO_FRONT$executePath$EXTENSION_INFO_BACK"
+        echo -e "$EXTENSION_INFO_FRONT $executePath $EXTENSION_INFO_BACK"
     fi
     endTime=$(date +%s)
     echo -n "$TIME_USE"
@@ -288,7 +288,7 @@ else
             exit 1
         fi
     else
-        echo -e "$EXTENSION_INFO_FRONT$executePath$EXTENSION_INFO_BACK"
+        echo -e "$EXTENSION_INFO_FRONT $executePath $EXTENSION_INFO_BACK"
         echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
         endTime=$(date +%s)
         echo -n "$TIME_USE"
