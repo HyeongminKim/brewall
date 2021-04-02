@@ -2,7 +2,6 @@
 
 debugPath=~/Library/Logs/Homebrew
 brewPath=
-debug=false
 update=false
 upgrade=false
 cleanup=false
@@ -61,8 +60,6 @@ elif [ "$1" == "runtime" ]; then
         cat $debugPath/brewall_initiated.log 2> /dev/null
     fi
     exit 0
-elif [ "$1" == "debug" ]; then
-    debug=true
 elif [ "$1" == "changelog" ]; then
     if [ -r $debugPath/cntRevision.txt ] && [ -r $debugPath/updatedRevision.txt ]; then
         cntRevision="$(cat $debugPath/cntRevision.txt)"
@@ -149,7 +146,7 @@ if [ "$?" != "0" ]; then
 fi
 
 if [ -x $executePath/tools/install.sh ]; then
-    "$executePath/tools/install.sh" "install" $debug
+    "$executePath/tools/install.sh" "install"
     if [ $? != 0 ]; then
         exit $?
     fi

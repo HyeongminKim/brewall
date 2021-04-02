@@ -1,6 +1,5 @@
 #!/bin/bash
 
-debug=$2
 debugPath=~/Library/Logs/Homebrew
 executePath=$(echo $0 | sed "s/\/tools\/install.sh//g")
 versionChecked=false
@@ -39,7 +38,7 @@ if [ "$1" == "install" ]; then
         checkVersion
         curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
         echo -en "$ACT_KEY"
-        if [ $debug != true ]; then
+        if [ "$IS_DEBUG" != "TRUE" ]; then
             read n
             if [ "$n" == "N" -o "$n" == "n" ]; then
                 echo "$DIS_KEY"
@@ -84,7 +83,7 @@ if [ "$1" == "install" ]; then
             echo "$TIGER_INSTALL_INFO_2"
             echo "$TIGER_INSTALL_INFO_3"
             echo -n "$TIGER_INSTALL_CHK"
-            if [ $debug != true ]; then
+            if [ "$IS_DEBUG" != "TRUE" ]; then
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
                     echo "$ABT_INSTALL"
@@ -100,7 +99,7 @@ if [ "$1" == "install" ]; then
             echo "$HOME_INSTALL_INFO_2"
             echo "$HOME_INSTALL_INFO_3"
             echo -n "$HOME_INSTALL_CHK"
-            if [ $debug != true ]; then
+            if [ "$IS_DEBUG" != "TRUE" ]; then
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
                     echo "$ABT_INSTALL"
@@ -109,7 +108,7 @@ if [ "$1" == "install" ]; then
             fi
             if [ "$(uname -m)" == "arm64" ]; then
                 echo -n "$HOME_INSTALL_ARM"
-                if [ $debug != true ]; then
+                if [ "$IS_DEBUG" != "TRUE" ]; then
                     read n
                     if [ "$n" == "n" -o "$n" == "N" ]; then
                         arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"

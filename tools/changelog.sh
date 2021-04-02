@@ -1,7 +1,12 @@
 #!/bin/bash
 
-beforeCommit="$1"
-updatedCommit="$2"
+if [ "$IS_DEBUG" != "TRUE" ]; then
+    beforeCommit="$1"
+    updatedCommit="$2"
+else
+    beforeCommit="$(git rev-parse HEAD^)"
+    updatedCommit="$(git rev-parse HEAD)"
+fi
 executePath=$(echo $0 | sed "s/\/tools\/changelog.sh//g")
 cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
 releasePath=~/Library/Logs/Homebrew
