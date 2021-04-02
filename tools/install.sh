@@ -1,5 +1,6 @@
 #!/bin/bash
 
+debug=$2
 debugPath=~/Library/Logs/Homebrew
 executePath=$(echo $0 | sed "s/\/tools\/install.sh//g")
 versionChecked=false
@@ -38,10 +39,12 @@ if [ "$1" == "install" ]; then
         checkVersion
         curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
         echo -en "$ACT_KEY"
-        read n
-        if [ "$n" == "N" -o "$n" == "n" ]; then
-            echo "$DIS_KEY"
-            exit 1
+        if [ $debug != true ]; then
+            read n
+            if [ "$n" == "N" -o "$n" == "n" ]; then
+                echo "$DIS_KEY"
+                exit 1
+            fi
         fi
 
         mkdir ~/Library/Application\ Support/com.greengecko.brewall
@@ -81,10 +84,12 @@ if [ "$1" == "install" ]; then
             echo "$TIGER_INSTALL_INFO_2"
             echo "$TIGER_INSTALL_INFO_3"
             echo -n "$TIGER_INSTALL_CHK"
-            read n
-            if [ "$n" == "n" -o "$n" == "N" ]; then
-                echo "$ABT_INSTALL"
-                exit 1
+            if [ $debug != true ]; then
+                read n
+                if [ "$n" == "n" -o "$n" == "N" ]; then
+                    echo "$ABT_INSTALL"
+                    exit 1
+                fi
             fi
             ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go/install)"
         else
@@ -95,18 +100,22 @@ if [ "$1" == "install" ]; then
             echo "$HOME_INSTALL_INFO_2"
             echo "$HOME_INSTALL_INFO_3"
             echo -n "$HOME_INSTALL_CHK"
-            read n
-            if [ "$n" == "n" -o "$n" == "N" ]; then
-                echo "$ABT_INSTALL"
-                exit 1
+            if [ $debug != true ]; then
+                read n
+                if [ "$n" == "n" -o "$n" == "N" ]; then
+                    echo "$ABT_INSTALL"
+                    exit 1
+                fi
             fi
             if [ "$(uname -m)" == "arm64" ]; then
                 echo -n "$HOME_INSTALL_ARM"
-                read n
-                if [ "$n" == "n" -o "$n" == "N" ]; then
-                    arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-                else
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                if [ $debug != true ]; then
+                    read n
+                    if [ "$n" == "n" -o "$n" == "N" ]; then
+                        arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                    else
+                        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                    fi
                 fi
             else
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
