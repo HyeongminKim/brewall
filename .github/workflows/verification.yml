@@ -24,17 +24,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        env:
+          IS_DEBUG: TRUE
 
       # Runs a single command using the runners shell
-      - name: Execute brewall with Homebrew
+      - name: Install Homebrew and initialize brewall
         run: $GITHUB_WORKSPACE/brewall.sh debug
-
-      # Runs a set of commands using the runners shell
-      - name: Execute brewall with parameter
-        run: |
-          $GITHUB_WORKSPACE/brewall.sh version
-          $GITHUB_WORKSPACE/brewall.sh runtime
-          $GITHUB_WORKSPACE/brewall.sh changelog
-          $GITHUB_WORKSPACE/brewall.sh help
-          $GITHUB_WORKSPACE/brewall.sh remove --config
-          $GITHUB_WORKSPACE/brewall.sh remove --purge
+        
+      # Runs a set of commands using the runners shell  
+      - name: Print brewall runtime
+        run: $GITHUB_WORKSPACE/brewall.sh runtime
+      - name: Print brewall version
+        run: $GITHUB_WORKSPACE/brewall.sh version
+      - name: Print brewall changelog
+        run: $GITHUB_WORKSPACE/brewall.sh changelog
+      - name: brewall config files delete
+        run: $GITHUB_WORKSPACE/brewall.sh remove --config
+      - name: Homebrew uninstall
+        run: $GITHUB_WORKSPACE/brewall.sh remove
