@@ -27,14 +27,14 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Execute brewall with Homebrew
-        run: brewall.sh debug
+        run: $GITHUB_WORKSPACE/brewall.sh debug
 
       # Runs a set of commands using the runners shell
       - name: Execute brewall with parameter
         run: |
-          brewall.sh version
-          brewall.sh runtime
-          brewall.sh changelog
-          brewall.sh help
-          brewall.sh remove --config
-          brewall.sh remove --purge
+          $GITHUB_WORKSPACE/brewall.sh version
+          $GITHUB_WORKSPACE/brewall.sh runtime
+          $GITHUB_WORKSPACE/brewall.sh changelog
+          $GITHUB_WORKSPACE/brewall.sh help
+          $GITHUB_WORKSPACE/brewall.sh remove --config
+          $GITHUB_WORKSPACE/brewall.sh remove --purge
