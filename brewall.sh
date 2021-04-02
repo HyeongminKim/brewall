@@ -14,14 +14,20 @@ cd $executePath
 
 function English() {
     source $executePath/localization/en_US/brewall_en-US.sh
+    source $executePath/localization/en_US/install_en-US.sh
+    source $executePath/localization/en_US/upgrade_en-US.sh
+    source $executePath/localization/en_US/changelog_en-US.sh
 }
 
 function Korean() {
     source $executePath/localization/ko_KR/brewall_ko-KR.sh
+    source $executePath/localization/ko_KR/install_ko-KR.sh
+    source $executePath/localization/ko_KR/upgrade_ko-KR.sh
+    source $executePath/localization/ko_KR/changelog_ko-KR.sh
 }
 
 if [ $simpleLANG == "ko_KR" ]; then
-    echo "brew가 설치되어 있지 않거나 감지되지 않았습니다. "
+    Korean
 elif [ $simpleLANG == "en_US" ]; then
     English
 else
@@ -31,7 +37,7 @@ else
 fi
 
 if [ "$1" == "version" ]; then
-    echo -e "brewall ($GIT_REVISION $(git rev-parse --short HEAD), last commit $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') build)"
+    echo -e "brewall ($GIT_REVISION $(git rev-parse --short HEAD), $LAST_COMMIT $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') $BUILD)"
     echo -e "Copyright (c) 2020 Hyeongmin Kim\n"
     bash --version
     echo ""
@@ -39,22 +45,14 @@ if [ "$1" == "version" ]; then
     if [ $? == 0 ]; then
         brew --version
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "brew가 설치되어 있지 않거나 감지되지 않았습니다. "
-        else
-            echo "brew is not installed or not detected."
-        fi
+        echo "$ERR_DETECT_BREW"
     fi
     echo ""
     which git > /dev/null 2>&1
     if [ $? == 0 ]; then
         git --version
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "git이 설치되어 있지 않거나 감지되지 않았습니다. "
-        else
-            echo "git is not installed or not detected."
-        fi
+        echo "$ERR_DETECT_GIT"
     fi
     exit 0
 elif [ "$1" == "runtime" ]; then
@@ -74,11 +72,7 @@ elif [ "$1" == "remove" ]; then
     if [ -x $executePath/tools/install.sh ]; then
         "$executePath/tools/install.sh" "uninstall" "$2"
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "\033[31m언인스톨러를 실행할 권한이 없습니다. \033[m"
-        else
-            echo -e "\033[31mCan't run uninstaller, Please change permission.\033[m"
-        fi
+        echo -e "$ERR_EXECUTE_UNINSTALLER"
     fi
     exit $?
 elif [ x$1 == x ]; then
@@ -88,20 +82,11 @@ elif [ "$1" == "help" ]; then
     if [ $? != 0 ]; then
         echo "URL: https://github.com/HyeongminKim/brewall#usage-brewallsh-command-option"
     fi
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "사용법: $0 [명령] [옵션]"
-    else
-        echo "USAGE: $0 [COMMAND] [OPTION]"
-    fi
+    echo "$SHOW_CMD_USAGE"
     exit 0
 else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "$@ 은 알 수 없는 명령이며 무시됩니다. "
-        echo "brewall의 도움말을 보시려면 help 명령을 사용하십시오. "
-    else
-        echo "Unknown command $@ Skipping."
-        echo "If you wonder brewall help, Please use help command. "
-    fi
+    echo "$IGNORE_UNKNOWN_CMD_TITLE_FRONT $@ $IGNORE_UNKNOWN_CMD_TITLE_BACK"
+    echo "$IGNORE_UNKNOWN_CMD_INFO"
 fi
 
 function calcTime() {
@@ -123,31 +108,16 @@ function compareTime() {
         previousElapsedTime=$(cat $debugPath/ElapsedTime.txt 2> /dev/null)
         if [ $previousElapsedTime -gt $currentElapsedTime ]; then
             result=$(($previousElapsedTime-$currentElapsedTime))
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\033[34m▼ $result 초\033[m"
-            else
-                echo -e "\033[31m▼ $result sec\033[m"
-            fi
+            echo -e "$DOWN_SYMBOL_FRONT $result $DOWN_SYMBOL_BACK"
+            echo -e "$DOWN_SYMBOL"
         elif [ $previousElapsedTime -lt $currentElapsedTime ]; then
             result=$(($currentElapsedTime-$previousElapsedTime))
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\033[31m▲ $result 초\033[m"
-            else
-                echo -e "\033[32m▲ $result sec\033[m"
-            fi
+            echo -e "$UP_SYMBOL_FRONT $result $UP_SYMBOL_BACK"
         else
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo "- 0 초"
-            else
-                echo "- 0 sec"
-            fi
+            echo "$EQUAL_SYMBOL"
         fi
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "- 0 초"
-        else
-            echo "- 0 sec"
-        fi
+        echo "$EQUAL_SYMBOL"
     fi
     echo "$elapsedTime" > $debugPath/ElapsedTime.txt
 
@@ -157,11 +127,7 @@ startTime=$(date +%s)
 
 ping -c 1 -W 1 -q "www.google.com" &> /dev/null
 if [ "$?" != "0" ]; then
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -en "\033[31m인터넷 연결 확인... "
-    else
-        echo -en "\033[31mCheck your internet connection... "
-    fi
+    echo -en "$ERR_INT_CNT"
     index=0
     spinner='/-\|'
     n=${#spinner}
@@ -173,11 +139,7 @@ if [ "$?" != "0" ]; then
             sleep 1
         else
             printf '\b\b\b\b%s' " "
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\033[32m연결됨\033[m"
-            else
-                echo -e "\033[32mConnected\033[m"
-            fi
+            echo -e "$SYN_INT_CNT"
             break
         fi
     done
@@ -189,11 +151,7 @@ if [ -x $executePath/tools/install.sh ]; then
         exit $?
     fi
 else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[31m의존성 패키지가 제대로 설치되어 있는지 확인할 수 없어 종료합니다. \033[m"
-    else
-        echo -e "\033[31mExited because dependency package couldn't be verified.\033[m"
-    fi
+    echo -e "$ERR_CHK_DPY"
     exit 1
 fi
 
@@ -202,13 +160,8 @@ brewPath=$(which brew 2> /dev/null)
 if [ -r $debugPath/brewall_initiated.log ]; then
     cat $debugPath/brewall_initiated.log
 fi
-if [ $LANG == "ko_KR.UTF-8" ]; then
-    echo -n "[33m이전 시간: $(date)[0m " > $debugPath/brewall_initiated.log
-    echo -e "\033[32m시작 시간: $(date)\033[m"
-else
-    echo -n "[33m Previous time: $(date)[0m " > $debugPath/brewall_initiated.log
-    echo -e "\033[32mInitiated time: $(date)\033[m"
-fi
+echo -n "$PREV_TIME" > $debugPath/brewall_initiated.log
+echo -e "$START_TIME"
 
 if [ "$(uname -m)" == "arm64" ]; then
     if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
@@ -281,26 +234,17 @@ fi
 if [ -x $executePath/tools/upgrade.sh ]; then
     "$executePath/tools/upgrade.sh" "$executePath"
 else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[31m자동 업데이트 도중 에러가 발생하였습니다. 수동으로 진행하여 주세요\033[m"
-    else
-        echo -e "\033[31mAn error occurred during automatic update. By going manually\033[m"
-    fi
+    echo -e "$ERR_UPDATE"
     open https://github.com/HyeongminKim/brewall
 fi
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[31mbrewall이 실패했거나 경고가 발생하였습니다.\033[m\nbrewall 로그 파일이 \033[0;1m$debugPath\033[m 에 위치해 있습니다. "
-        echo "----- brew 로그 목록 -----"
+    if [ $logFiles == 1 ]; then
+        echo -e "$ERR_LOG_SAVED_ONE_TITLE_FRONT $debugPath $ERR_LOG_SAVED_ONE_TITLE_BACK"
+        echo "$ERR_LOG_SAVED_ONE_INFO"
     else
-        if [ $logFiles == 1 ]; then
-            echo -e "\033[31mbrewall has failed and/or occurred warning.\033[m\nbrewall log file located \033[0;1m$debugPath\033[m"
-            echo "----- brew log list -----"
-        else
-            echo -e "\033[31mbrewall has failed and/or occurred warning.\033[m\nbrewall log files located \033[0;1m$debugPath\033[m"
-            echo "----- brew logs list -----"
-        fi
+        echo -e "$ERR_LOG_SAVED_MANY_TITLE_FRONT $debugPath $ERR_LOG_SAVED_MANY_TITLE_BACK"
+        echo "$ERR_LOG_SAVED_MANY_INFO"
     fi
     ls -lh $debugPath | awk '{print $9 " ("$5")"}' |grep brew_ |grep debug.log
     if [ $logFiles == 1 ]; then
@@ -308,96 +252,46 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
     else
         echo "--------------------------"
     fi
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo "[31m[실패][0m " >> $debugPath/brewall_initiated.log
-    else
-        echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
-    fi
+    echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
     if [ -x $executePath/tools/extension.sh ]; then
         "$executePath/tools/extension.sh"
         if [ $? != 0 ]; then
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\033[31m익스텐션을 로드하는 도중 에러가 발생하였습니다. \033[m"
-                echo "[31m[실패][0m " >> $debugPath/brewall_initiated.log
-            else
-                echo -e "\033[31mAn error occurred while loading the extension.\033[m"
-                echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
-            fi
+            echo -e "$ERR_EXTENSION"
+            echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
         fi
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "추가 명령을 실행하고 싶으시면 extension.sh 파일을 \033[0;1m$executePath/tools\033[m 디렉토리 안에 두십시오. "
-        else
-            echo -e "If you want to run additional commands, place the extension.sh file in the \033[0;1m$executePath/tools\033[m directory."
-        fi
+        echo -e "$EXTENSION_INFO_FRONT$executePath$EXTENSION_INFO_BACK"
     fi
     endTime=$(date +%s)
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -n "소비 시간: "
-    else
-        echo -n "Elapsed Time: "
-    fi
+    echo -n "$TIME_USE"
     calcTime $endTime $startTime
     compareTime
     exit 1
 else
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[34mbrewall 이 성공하였습니다.\033[m"
-    else
-        echo -e "\033[34mbrewall has successful.\033[m"
-    fi
+    echo -e "$OK_TITLE"
     if [ -x $executePath/tools/extension.sh ]; then
         "$executePath/tools/extension.sh"
         if [ $? == 0 ]; then
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo "[34m[성공][0m " >> $debugPath/brewall_initiated.log
-            else
-                echo "[34m[SUCCEED][0m " >> $debugPath/brewall_initiated.log
-            fi
+            echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
             endTime=$(date +%s)
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -n "소비 시간: "
-            else
-                echo -n "Elapsed Time: "
-            fi
+            echo -n "$TIME_USE"
             calcTime $endTime $startTime
             compareTime
             exit 0
         else
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\033[31m익스텐션을 로드하는 도중 에러가 발생하였습니다. \033[m"
-                echo "[31m[실패][0m " >> $debugPath/brewall_initiated.log
-            else
-                echo -e "\033[31mAn error occurred while loading the extension.\033[m"
-                echo "[31m[FAILED][0m " >> $debugPath/brewall_initiated.log
-            fi
+            echo -e "$ERR_EXTENSION"
+            echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
             endTime=$(date +%s)
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -n "소비 시간: "
-            else
-                echo -n "Elapsed Time: "
-            fi
+            echo -n "$TIME_USE"
             calcTime $endTime $startTime
             compareTime
             exit 1
         fi
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "추가 명령을 실행하고 싶으시면 extension.sh 파일을 \033[0;1m$executePath/tools\033[m 디렉토리 안에 두십시오. "
-        else
-            echo -e "If you want to run additional commands, place the extension.sh file in the \033[0;1m$executePath/tools\033[m directory."
-        fi
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "[34m[성공][0m " >> $debugPath/brewall_initiated.log
-        else
-            echo "[34m[SUCCEED][0m " >> $debugPath/brewall_initiated.log
-        fi
+        echo -e "$EXTENSION_INFO_FRONT$executePath$EXTENSION_INFO_BACK"
+        echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
         endTime=$(date +%s)
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -n "소비 시간: "
-        else
-            echo -n "Elapsed Time: "
-        fi
+        echo -n "$TIME_USE"
         calcTime $endTime $startTime
         compareTime
         exit 0

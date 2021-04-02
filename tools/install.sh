@@ -5,22 +5,14 @@ executePath=$(echo $0 | sed "s/\/tools\/install.sh//g")
 versionChecked=false
 
 if [ "$(uname -s)" != "Darwin" ]; then
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[31m$(uname -s) 는 아직 지원하지 않습니다. \033[m"
-    else
-        echo -e "\033[31m$(uname -s) does not support yet.\033[m"
-    fi
+    echo -e "$ERR_OS"
     exit 1
 fi
 
 xcode-select --print-path > /dev/null 2>&1
 if [ $? != 0 ]; then
     xcode-select --install
-    if [ $LANG == "ko_KR.UTF-8" ]; then
-        echo -e "\033[33mxcode-select 설치를 끝낸 후 다시 실행하여 주세요. \033[m"
-    else
-        echo -e "\033[33mAfter you finish installing xcode-select, run it again.\033[m"
-    fi
+    echo -e "$INFO_XCS"
     exit 2
 fi
 
@@ -35,11 +27,7 @@ function checkVersion() {
     elif [ $? == 1 ]; then
         exit 1
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "\033[33m변경 사항을 적용하기 위해 다시 실행하여 주세요. \033[m"
-        else
-            echo -e "\033[33mPlease run again to apply the changes.\033[m"
-        fi
+        echo -e "$APY_RST"
         exit 2
     fi
 }
@@ -49,132 +37,71 @@ if [ "$1" == "install" ]; then
     if [ $? != 0 ]; then
         checkVersion
         curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -en "\nbrewall 프로젝트 및 스크립트는 위의 MIT 라이선스에 귀속됩니다. \n 위 라이선스에 동의하십니까? (Y/n) > "
-        else
-            echo -en "\nThe brewall projects and scripts belong to the MIT license above. \nDo you accept the above license? (Y/n) > "
-        fi
+        echo -en "$ACT_KEY"
         read n
         if [ "$n" == "N" -o "$n" == "n" ]; then
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo "라이선스에 동의해야 brewall 프로젝트 및 스크립트를 사용할 수 있습니다. "
-            else
-                echo "You should agree to the license before you can use brewall project and scripts."
-            fi
+            echo "$DIS_KEY"
             exit 1
         fi
 
         mkdir ~/Library/Application\ Support/com.greengecko.brewall
         touch ~/Library/Application\ Support/com.greengecko.brewall/initializationed
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "brewall 설정 폴더를 생성하였습니다. 설정 폴더는 \033[0;1m$HOME/Library/Application\ Support/com.greengecko.brewall\033[m에 위치할 것입니다. "
-        else
-            echo -e "brewall config folder created. This config folder path is \033[0;1m$HOME/Library/Application\ Support/com.greengecko.brewall\033[m"
-        fi
+        echo -e "$CONF_DIR_MKDIR"
     fi
 
     if [ -d $debugPath ]; then
         echo "" > /dev/null
     else
         mkdir ~/Library/Logs/Homebrew
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo -e "brewall 로그 폴더를 생성하였습니다. 모든 로그 파일들은 \033[0;1m$debugPath\033[m에 위치할 것입니다. "
-        else
-            echo -e "brewall log folder created. All logs file are located in \033[0;1m$debugPath\033[m"
-        fi
+        echo -e "$LOG_DIR_MKDIR_FRONT $debugPath $LOG_DIR_MKDIR_BACK"
     fi
 
     which brew > /dev/null 2>&1
     if [ $? != 0 ]; then
         checkVersion
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "이 brewall 스크립트는 brew 패키지 관리자를 더 사용하기 쉽도록 하는 도구이며 이들이 필수적으로 필요합니다. "
+            echo "$INFO_REQ_BREW"
 
-            echo -e "\033[0;1m현재 시스템 사양\033[m"
+            echo -e "$SYS_STATUS_TITLE"
             echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
             echo "$(sw_vers -productName) $(sw_vers -productVersion)"
 
-            echo -e "\033[0;1mHomebrew macOS 요구사항\033[m"
-            echo -e "64비트 인텔 CPU 또는 M CPU"
-            echo "10.13 이상 권장"
-            echo -e "Xcode 와/또는 xcode-select 필요\n"
+            echo -e "$HOME_REQ_TITLE"
+            echo -e "$HOME_REQ_CPU"
+            echo "$HOME_REQ_OS"
+            echo -e "$HOME_REQ_DEV"
 
-            echo -e "\033[0;1mTigerbrew macOS 요구사항\033[m"
-            echo "Power PC"
-            echo -e "Tiger or Leopard 권장\n"
-        else
-            echo "This brewall script require brew. Because extend of these tools."
-
-            echo -e "\033[0;1mCurrent system specifications\033[m"
-            echo "CPU: $(sysctl -n machdep.cpu.brand_string)"
-            echo "$(sw_vers -productName) $(sw_vers -productVersion)"
-            
-            echo -e "\033[0;1mHomebrew macOS Requirements\033[m"
-            echo -e "64bit Intel CPU or M CPU"
-            echo "10.13 or higher recommend"
-            echo -e "Xcode and/or xcode-select require\n"
-
-            echo -e "\033[0;1mTigerbrew macOS Requirements\033[m"
-            echo "Power PC"
-            echo -e "Tiger or Leopard recommend\n"
-        fi
+            echo -e "$TIGER_REQ_TITLE"
+            echo "$TIGER_REQ_CPU"
+            echo -e "$TIGER_REQ_OS"
         if [ $(sw_vers -productVersion) == 10.[45].* ]; then
             echo ""
             curl -fsSkL https://raw.githubusercontent.com/mistydemeo/tigerbrew/master/LICENSE.txt
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\n\033[0;1mTigerbrew 설치 방법\033[m"
-                echo -e "\033[0;1mhttps://github.com/mistydemeo/tigerbrew\033[m 이 사이트에 들어가서 Tigerbrew를 수동으로 설치하거나"
-                echo "아니면 지금 한번에 설치할 수 있습니다. (제 3자 스크립트를 실행하며 무엇을 할지 설명하고 잠시 대기합니다. )"
-                echo "설치할 경우 라이선스에 동의한 것으로 간주합니다. "
-                echo -n "설치하시겠습니까? (Y/n) > "
-            else
-                echo -e "\n\033[0;1mTigerbrew Installation guide\033[m"
-                echo -e "Please enter this site \033[0;1mhttps://github.com/mistydemeo/tigerbrew\033[m and manual install Tigerbrew or "
-                echo "Install now on this script. (Execute Third party script and explains what it will do and then pauses before it does it. )"
-                echo "By installing, you are deemed to have accepted the license."
-                echo -n "Install Tigerbrew now? (Y/n) > "
-            fi
+            echo -e "$TIGER_INSTALL_GUIDE"
+            echo -e "$TIGER_INSTALL_INFO_1"
+            echo "$TIGER_INSTALL_INFO_2"
+            echo "$TIGER_INSTALL_INFO_3"
+            echo -n "$TIGER_INSTALL_CHK"
             read n
             if [ "$n" == "n" -o "$n" == "N" ]; then
-                if [ $LANG == "ko_KR.UTF-8" ]; then
-                    echo "설취를 취소하였습니다. 필수 패키지를 로드할 수 없으므로 종료합니다. "
-                else
-                    echo "Installation aborted. Can not load require package, terminating."
-                fi
+                echo "$ABT_INSTALL"
                 exit 1
             fi
             ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go/install)"
         else
             echo ""
             curl -fsSkL https://raw.githubusercontent.com/Homebrew/brew/master/LICENSE.txt
-            if [ $LANG == "ko_KR.UTF-8" ]; then
-                echo -e "\n\033[0;1mHomebrew 설치 방법\033[m"
-                echo -e "\033[0;1mhttps://brew.sh/index_ko\033[m 이 사이트에 들어가서 Homebrew를 수동으로 설치하거나"
-                echo "아니면 지금 한번에 설치할 수 있습니다. (제 3자 스크립트를 실행하며 무엇을 할지 설명하고 잠시 대기합니다. )"
-                echo "설치할 경우 라이선스에 동의한 것으로 간주합니다. "
-                echo -n "설치하시겠습니까? (Y/n) > "
-            else
-                echo -e "\n\033[0;1mHomebrew Installation guide\033[m"
-                echo -e "Please enter this site \033[0;1mhttps://brew.sh\033[m and manual install Homebrew or "
-                echo "Install now on this script. (Execute Third party script and explains what it will do and then pauses before it does it. )"
-                echo "By installing, you are deemed to have accepted the license."
-                echo -n "Install Homebrew now? (Y/n) > "
-            fi
+            echo -e "$HOME_INSTALL_TITLE"
+            echo -e "$HOME_INSTALL_INFO_1"
+            echo "$HOME_INSTALL_INFO_2"
+            echo "$HOME_INSTALL_INFO_3"
+            echo -n "$HOME_INSTALL_CHK"
             read n
             if [ "$n" == "n" -o "$n" == "N" ]; then
-                if [ $LANG == "ko_KR.UTF-8" ]; then
-                    echo "설취를 취소하였습니다. 필수 패키지를 로드할 수 없으므로 종료합니다. "
-                else
-                    echo "Installation aborted. Can not load require package, terminating."
-                fi
+                echo "$ABT_INSTALL"
                 exit 1
             fi
             if [ "$(uname -m)" == "arm64" ]; then
-                if [ $LANG == "ko_KR.UTF-8" ]; then
-                    echo -n "Native 버전으로 설치하시겠습니까? (Y/n) > "
-                else
-                    echo -n "Would you like to install the Native version? (Y/n) > "
-                fi
+                echo -n "$HOME_INSTALL_ARM"
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
                     arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -217,13 +144,8 @@ elif [ "$1" == "uninstall" ]; then
     elif [ x$2 == x ]; then
         removePackage
     else
-        if [ $LANG == "ko_KR.UTF-8" ]; then
-            echo "$2 은 알 수 없는 명령이며 무시됩니다. "
-            echo "brewall의 도움말을 보시려면 help 명령을 사용하십시오. "
-        else
-            echo "Unknown command $2 Skipping."
-            echo "If you wonder brewall help, Please use help command. "
-        fi
+        echo "$IGNORE_UNKNOWN_CMD_TITLE"
+        echo "$IGNORE_UNKNOWN_CMD_INFO"
         removePackage
     fi
 fi
