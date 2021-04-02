@@ -48,5 +48,11 @@
 |tools/changelog.sh|A script that prints out changes according to the format when the update is successful.|
 |tools/extension.sh|Allows the user to write additional shell scripts, which is optional.|
 
+### Localization 
+- [Show current support languages](https://github.com/HyeongminKim/brewall/tree/master/localization)
+- Localizing new languages
+  - Create a folder with the locale code name inside the localization folder and start localization.
+- Improvement of existing localized language
+  - Thanks for contributing to brewall localization.
 ### License
 This work is licensed under a [MIT License](https://github.com/HyeongminKim/brewall/blob/master/LICENSE).
