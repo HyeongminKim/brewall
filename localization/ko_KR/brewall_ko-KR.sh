@@ -37,7 +37,7 @@ export ERR_CHK_DPY="\033[31m의존성 패키지를 검증할 수 없기 때문�
 
 
 ##### Logging Current Time #####
-export PREV_TIME="[33m 이전 시간: $(date)[0m "
+export PREV_TIME="[33m이전 시간: $(date)[0m "
 export START_TIME="\033[32m시작 시간: $(date)\033[m"
 
 ##### Auto Update #####
