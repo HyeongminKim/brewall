@@ -20,7 +20,7 @@ export IGNORE_UNKNOWN_CMD_INFO="brewall 도움말을 보시려면, help 명령�
 
 
 ##### Compare Time #####
-export DOWN_SYMBOL_FRONT="\034[31m▼"
+export DOWN_SYMBOL_FRONT="\033[31m▼"
 export DOWN_SYMBOL_BACK="초\033[m"
 export EQUAL_SYMBOL="- 0 초"
 export UP_SYMBOL_FRONT="\033[31m▲"
