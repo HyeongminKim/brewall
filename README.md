@@ -49,7 +49,7 @@
 |tools/extension.sh|Allows the user to write additional shell scripts, which is optional.|
 
 ### Localization 
-- [Show current support languages](https://github.com/HyeongminKim/brewall/tree/master/localization)
+- [Show current support languages](https://github.com/HyeongminKim/brewall/tree/nightly/localization)
 - Localizing new languages
   - Create a folder with the locale code name inside the localization folder and start localization.
 - Improvement of existing localized language
