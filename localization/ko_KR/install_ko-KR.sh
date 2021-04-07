@@ -31,6 +31,12 @@ export SYS_STATUS_TITLE="\033[0;1m현재 시스템 사양\033[m"
 export ABT_INSTALL="설취를 취소하였습니다. 필수 패키지를 로드할 수 없으므로 종료합니다. "
 
 
+##### Uninstall #####
+export CONF_DIR_RMDIR="brewall 설정 폴더를 삭제하였습니다. "
+export LOG_DIR_RMDIR="brewall 로그 폴더를 삭제하였습니다. "
+export PACK_UNINSTALL="Brew가 제거되었습니다. 화면에 표시된 대로 남아있는 디렉토리를 마저 삭제하여 주십시오. "
+
+
 ##### HomeBrew #####
 ### HomeBrew Requirements
 export HOME_REQ_TITLE="\033[0;1mHomebrew macOS 요구사항\033[m"

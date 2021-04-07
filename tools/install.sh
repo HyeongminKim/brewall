@@ -126,9 +126,11 @@ elif [ "$1" == "uninstall" ]; then
         ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
         if [ $? == 0 ]; then 
             rm -rf ~/Library/Application\ Support/com.greengecko.brewall
+            echo "$CONF_DIR_RMDIR"
         fi
         if [ -w $debugPath ]; then
             rm -rf $debugPath
+            echo "$LOG_DIR_RMDIR"
         fi
     }
 
@@ -142,6 +144,7 @@ elif [ "$1" == "uninstall" ]; then
         else
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
         fi
+        echo "$PACK_UNINSTALL"
     }
 
     if [ "$2" == "--config" ]; then

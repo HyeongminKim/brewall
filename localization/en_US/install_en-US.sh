@@ -31,6 +31,12 @@ export SYS_STATUS_TITLE="\033[0;1mCurrent system specifications\033[m"
 export ABT_INSTALL="Installation aborted. Can not load require package, terminating."
 
 
+##### Uninstall #####
+export CONF_DIR_RMDIR="brewall config folder deleted. "
+export LOG_DIR_RMDIR="brewall log folder deleted. "
+export PACK_UNINSTALL="Brew has been removed. Delete the remaining directories as displayed on the screen. "
+
+
 ##### HomeBrew #####
 ### HomeBrew Requirements
 export HOME_REQ_TITLE="\033[0;1mHomebrew macOS Requirements\033[m"
