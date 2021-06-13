@@ -63,6 +63,10 @@ export OK_TITLE="\033[34mbrewall has successful.\033[m"
 export FAILURE_INFO="[31m[FAILED][0m "
 export SUCCESS_INFO="[34m[SUCCEED][0m "
 
+##### extension.sh file check #####
+export CSM_CHECK_EXTENSION="extension.sh checksum:"
+export CHECK_OPERATION="Action to run(y: execute, n: abort, d: quicklook) > "
+export EXECUTE_EXTENSION_ABORT="User aborted extension.sh file execution."
 
 ##### Failed load extension #####
 export ERR_EXTENSION="\033[31mAn error occurred while loading the extension.\033[m"

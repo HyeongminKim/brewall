@@ -63,6 +63,10 @@ export OK_TITLE="\033[34mbrewall이 성공했습니다.\033[m"
 export FAILURE_INFO="[31m[실패][0m "
 export SUCCESS_INFO="[34m[성공][0m "
 
+##### extension.sh file check #####
+export CSM_CHECK_EXTENSION="extension.sh 체크섬:"
+export CHECK_OPERATION="실행할 작업(y: 실행, n: 중단, d: 훑어보기) > "
+export EXECUTE_EXTENSION_ABORT="사용자가 extension.sh 파일 실행을 중단했습니다. "
 
 ##### Failed load extension #####
 export ERR_EXTENSION="\033[31m익스텐션을 로드하는 도중 에러가 발생하였습니다. \033[m"

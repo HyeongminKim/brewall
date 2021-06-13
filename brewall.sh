@@ -123,6 +123,42 @@ function compareTime() {
 
 }
 
+function executeExtension() {
+    if [ -r ~/Library/Application\ Support/com.greengecko.brewall/extension.csm ]; then
+        shasum -a 256 $executePath/tools/extension.sh > $debugPath/extension.csm
+        diff ~/Library/Application\ Support/com.greengecko.brewall/extension.csm $debugPath/extension.csm > /dev/null
+        if [ $? != 0 ]; then
+            extensionVerification
+        else
+            "$executePath/tools/extension.sh"
+        fi
+        rm $debugPath/extension.csm
+    else
+        extensionVerification
+    fi
+
+}
+
+function extensionVerification() {
+    echo "$CSM_CHECK_EXTENSION $(shasum -a 256 $executePath/tools/extension.sh)"
+    while true; do
+        echo -n "$CHECK_OPERATION"
+        read input
+        if [ "$input" == "y" -o "$input" == "Y" ]; then
+            shasum -a 256 $executePath/tools/extension.sh > ~/Library/Application\ Support/com.greengecko.brewall/extension.csm
+            "$executePath/tools/extension.sh"
+            break
+        elif [ "$input" == "n" -o "$input" == "N" ]; then
+            echo "$EXECUTE_EXTENSION_ABORT"
+            break
+        elif [ "$input" == "d" -o "$input" == "D" ]; then
+            less $executePath/tools/extension.sh
+        else
+            echo "$IGNORE_UNKNOWN_CMD_TITLE_FRONT $input $IGNORE_UNKNOWN_CMD_TITLE_BACK"
+        fi
+    done
+}
+
 startTime=$(date +%s)
 
 ping -c 1 -W 1 -q "www.google.com" &> /dev/null
@@ -254,7 +290,7 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
     fi
     echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
     if [ -x $executePath/tools/extension.sh ]; then
-        "$executePath/tools/extension.sh"
+        executeExtension
         if [ $? != 0 ]; then
             echo -e "$ERR_EXTENSION"
             echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
@@ -269,7 +305,7 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
 else
     echo -e "$OK_TITLE"
     if [ -x $executePath/tools/extension.sh ]; then
-        "$executePath/tools/extension.sh"
+        executeExtension
         if [ $? == 0 ]; then
             echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
             endTime=$(date +%s)
