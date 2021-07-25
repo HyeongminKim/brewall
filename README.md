@@ -27,6 +27,11 @@
     ```
     chmod 755 foo.sh
     ```
+- If you see the **command not found: git** error message run command like below.
+
+    ```
+    xcode-select --install
+    ```
 ### Usage: brewall.sh \[command\] \[option\]
 - version: Print this script version and environment version. 
 - runtime: Print previous brewall launch time. 
