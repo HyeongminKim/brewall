@@ -154,8 +154,8 @@ function extensionVerification() {
             break
         elif [ "$input" == "d" -o "$input" == "D" ]; then
             cat $executePath/tools/extension.sh > $debugPath/extension.txt
-            cat ~/Library/Application Support/com.greengecko.brewall/extension.sh.bak > $debugPath/extension_bak.txt
-            git diff --no-index $debugPath/extension_bak.txt $debugPath/extension.txt
+            cat ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak > $debugPath/extension_bak.txt
+            git diff --no-index ~/Library/Logs/Homebrew/extension_bak.txt ~/Library/Logs/Homebrew/extension.txt
 
             rm $debugPath/extension.txt $debugPath/extension_bak.txt
         else
