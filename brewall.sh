@@ -153,11 +153,15 @@ function extensionVerification() {
             echo "$EXECUTE_EXTENSION_ABORT"
             break
         elif [ "$input" == "d" -o "$input" == "D" ]; then
-            cat $executePath/tools/extension.sh > $debugPath/extension.txt
-            cat ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak > $debugPath/extension_bak.txt
-            git diff --no-index ~/Library/Logs/Homebrew/extension_bak.txt ~/Library/Logs/Homebrew/extension.txt
+            if [ -r ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak ]; then
+                cat $executePath/tools/extension.sh > $debugPath/extension.txt
+                cat ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak > $debugPath/extension_bak.txt
+                git diff --no-index $debugPath/extension_bak.txt $debugPath/extension.txt
 
-            rm $debugPath/extension.txt $debugPath/extension_bak.txt
+                rm $debugPath/extension.txt $debugPath/extension_bak.txt
+            else
+                less $executePath/tools/extension.sh
+            fi
         else
             echo "$IGNORE_UNKNOWN_CMD_TITLE_FRONT $input $IGNORE_UNKNOWN_CMD_TITLE_BACK"
         fi
