@@ -146,13 +146,14 @@ function extensionVerification() {
         read input
         if [ "$input" == "y" -o "$input" == "Y" ]; then
             shasum -a 256 $executePath/tools/extension.sh > ~/Library/Application\ Support/com.greengecko.brewall/extension.csm
+            cp $executePath/tools/extension.sh ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak
             "$executePath/tools/extension.sh"
             break
         elif [ "$input" == "n" -o "$input" == "N" ]; then
             echo "$EXECUTE_EXTENSION_ABORT"
             break
         elif [ "$input" == "d" -o "$input" == "D" ]; then
-            less $executePath/tools/extension.sh
+            git diff --no-index $executePath/tools/extension.sh ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak
         else
             echo "$IGNORE_UNKNOWN_CMD_TITLE_FRONT $input $IGNORE_UNKNOWN_CMD_TITLE_BACK"
         fi
