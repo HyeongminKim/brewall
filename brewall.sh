@@ -169,7 +169,7 @@ function extensionVerification() {
 }
 
 if [ -r ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock ]; then
-    echo "$ERR_CHK_DPY"
+    echo -e "$ERR_CHK_DPY"
     exit 1
 else
     touch ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
