@@ -168,6 +168,13 @@ function extensionVerification() {
     done
 }
 
+if [ -r ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock ]; then
+    echo "$ERR_CHK_DPY"
+    exit 1
+else
+    touch ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
+fi
+
 startTime=$(date +%s)
 
 ping -c 1 -W 1 -q "www.google.com" &> /dev/null
@@ -193,10 +200,12 @@ fi
 if [ -x $executePath/tools/install.sh ]; then
     "$executePath/tools/install.sh" "install"
     if [ $? != 0 ]; then
+        rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
         exit $?
     fi
 else
     echo -e "$ERR_CHK_DPY"
+    rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
     exit 1
 fi
 
@@ -307,6 +316,7 @@ if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = t
     else
         echo -e "$EXTENSION_INFO_FRONT $executePath$EXTENSION_INFO_BACK"
     fi
+    rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
     endTime=$(date +%s)
     echo -n "$TIME_USE"
     calcTime $endTime $startTime
@@ -317,6 +327,7 @@ else
         executeExtension
         if [ $? == 0 ]; then
             echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
+            rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
             endTime=$(date +%s)
             echo -n "$TIME_USE"
             calcTime $endTime $startTime
@@ -324,6 +335,7 @@ else
         else
             echo -e "$ERR_EXTENSION"
             echo "$FAILURE_INFO" >> $debugPath/brewall_initiated.log
+            rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
             endTime=$(date +%s)
             echo -n "$TIME_USE"
             calcTime $endTime $startTime
@@ -332,6 +344,7 @@ else
     else
         echo -e "$EXTENSION_INFO_FRONT $executePath$EXTENSION_INFO_BACK"
         echo "$SUCCESS_INFO" >> $debugPath/brewall_initiated.log
+        rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
         endTime=$(date +%s)
         echo -n "$TIME_USE"
         calcTime $endTime $startTime
