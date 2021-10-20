@@ -26,9 +26,9 @@ function Korean() {
     source $executePath/localization/ko_KR/changelog_ko-KR.sh
 }
 
-if [ $simpleLANG == "ko_KR" ]; then
+if [ "$simpleLANG" == "ko_KR" ]; then
     Korean
-elif [ $simpleLANG == "en_US" ]; then
+elif [ "$simpleLANG" == "en_US" ]; then
     English
 else
     echo -e "\033[33mWarning\033[m: $LANG is not supported at this time."
