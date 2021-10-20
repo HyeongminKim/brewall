@@ -1,6 +1,7 @@
 ##### Environment Check #####
 ### OS Check
 export ERR_OS="\033[31m$(uname -s) 는 아직 지원하지 않습니다. \033[m"
+export ERR_CHK_DPY="\033[31m의존성 패키지를 검증할 수 없기 때문에 종료되었습니다.\033[m"
 
 ### Development Tools Check
 export INFO_XCS="\033[33mxcode-select 설치를 끝낸 후 다시 실행하여 주세요. \033[m"

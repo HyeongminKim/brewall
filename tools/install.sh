@@ -58,6 +58,13 @@ if [ "$1" == "install" ]; then
         echo -e "$LOG_DIR_MKDIR_FRONT $debugPath $LOG_DIR_MKDIR_BACK"
     fi
 
+    if [ -r ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock ]; then
+        echo -e "$ERR_CHK_DPY"
+        exit 1
+    else
+        touch ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
+    fi
+
     which brew > /dev/null 2>&1
     if [ $? != 0 ]; then
         checkVersion

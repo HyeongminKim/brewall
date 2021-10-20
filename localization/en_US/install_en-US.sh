@@ -1,6 +1,7 @@
 ##### Environment Check #####
 ### OS Check
 export ERR_OS="\033[31m$(uname -s) does not support yet.\033[m"
+export ERR_CHK_DPY="\033[31mExited because dependency package couldn't be verified.\033[m"
 
 ### Development Tools Check
 export INFO_XCS="\033[33mAfter you finish installing xcode-select, run it again.\033[m"
