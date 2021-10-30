@@ -192,6 +192,10 @@ fi
 
 if [ -x $executePath/tools/install.sh ]; then
     "$executePath/tools/install.sh" "install"
+    if [ $? == 3 ]; then
+        exit 3
+    fi
+
     if [ $? != 0 ]; then
         rm ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock 2> /dev/null
         exit $?

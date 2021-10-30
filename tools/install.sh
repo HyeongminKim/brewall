@@ -60,7 +60,7 @@ if [ "$1" == "install" ]; then
 
     if [ -r ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock ]; then
         echo -e "$ERR_CHK_DPY"
-        exit 1
+        exit 3
     else
         touch ~/Library/Application\ Support/com.greengecko.brewall/brewall.lock
     fi
