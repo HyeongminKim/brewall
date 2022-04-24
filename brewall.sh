@@ -31,7 +31,7 @@ if [ "$simpleLANG" == "ko_KR" ]; then
 elif [ "$simpleLANG" == "en_US" ]; then
     English
 else
-    echo -e "\e[33mWarning\e[m: $LANG is not supported at this time."
+    echo -e "\033[33mWarning\033[m: $LANG is not supported at this time."
     echo "The default language will be English."
     English
 fi
