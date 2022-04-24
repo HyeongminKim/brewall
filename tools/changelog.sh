@@ -23,7 +23,7 @@ if [ "$beforeCommit" == "$updatedCommit" ]; then
 fi
 
 echo -e "$UPDATE_CHANNEL" > $releasePath/releasenote.txt
-echo -e "\033[0;4m$cntBranch\033[m\n" >> $releasePath/releasenote.txt
+echo -e "\e[0;4m$cntBranch\e[m\n" >> $releasePath/releasenote.txt
 if [ "$cntBranch" == "nightly" ]; then
     echo -e "$WARN_NIGHTLY_CHANNEL" > $releasePath/releasenote.txt
 fi
