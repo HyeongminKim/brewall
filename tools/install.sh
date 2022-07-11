@@ -51,9 +51,7 @@ if [ "$1" == "install" ]; then
         echo -e "$CONF_DIR_MKDIR"
     fi
 
-    if [ -d $debugPath ]; then
-        echo "" > /dev/null
-    else
+    if [ ! -d $debugPath ]; then
         mkdir ~/Library/Logs/Homebrew
         echo -e "$LOG_DIR_MKDIR_FRONT $debugPath $LOG_DIR_MKDIR_BACK"
     fi

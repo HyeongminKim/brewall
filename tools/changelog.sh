@@ -28,34 +28,26 @@ if [ "$cntBranch" == "nightly" ]; then
     echo -e "$WARN_NIGHTLY_CHANNEL" > $releasePath/releasenote.txt
 fi
 
-if [ -z "$(git log -1 --grep="ADD" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
-    echo "" > /dev/null
-else
+if ! [ -z "$(git log -1 --grep="ADD" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
     echo -e "$ADD_TITLE" >> $releasePath/releasenote.txt
     releaseCommitFormatter "ADD"
     echo "" >> $releasePath/releasenote.txt
 fi
 
-if [ -z "$(git log -1 --grep="UPDATE" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
-    echo "" > /dev/null
-else
+if ! [ -z "$(git log -1 --grep="UPDATE" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
     echo -e "$UPDATE_TITLE" >> $releasePath/releasenote.txt
     releaseCommitFormatter "UPDATE"
     echo "" >> $releasePath/releasenote.txt
 fi
 
-if [ -z "$(git log -1 --grep="DELETE" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
-    echo "" > /dev/null
-else
+if ! [ -z "$(git log -1 --grep="DELETE" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
     echo -e "$DELETE_TITLE" >> $releasePath/releasenote.txt
     releaseCommitFormatter "DELETE"
     echo "" >> $releasePath/releasenote.txt
 fi
 
 if [ "$(git branch | sed '/* /!d'| sed 's/* //g')" == "nightly" ]; then
-    if [ -z "$(git log -1 --grep="TEST" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
-        echo "" > /dev/null
-    else
+    if ! [ -z "$(git log -1 --grep="TEST" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
         echo -e "$TEST_TITLE" >> $releasePath/releasenote.txt
         releaseCommitFormatter "TEST"
         echo "" >> $releasePath/releasenote.txt

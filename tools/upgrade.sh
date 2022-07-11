@@ -10,9 +10,7 @@ cd $executePath
 
 function showCommit() {
     releasePath=~/Library/Logs/Homebrew
-    if [ -d $releasePath ]; then
-        echo "" > /dev/null
-    else
+    if [ ! -d $releasePath ]; then
         mkdir ~/Library/Logs/Homebrew
         dirCreated=true
     fi
