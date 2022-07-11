@@ -44,6 +44,14 @@ if git pull --rebase --stat origin $cntBranch; then
         donation
         if [ $dirCreated == true ]; then
             rm -rf ~/Library/Logs/Homebrew
+        elif [ "$cntBranch" == "nightly" ]; then
+            echo -e "$WARN_NIGHTLY_CHANNEL"
+            echo -n "$SUGGEST_CHANGE_CHANNEL"
+            read n
+            if ! [ "$n" == "n" -o "$n" == "N" ]; then
+                git remote update
+                git checkout -t origin/master
+            fi
         fi
         exit 2
     fi
