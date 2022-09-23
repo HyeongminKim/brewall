@@ -2,7 +2,7 @@
 
 name: brewall Syntax Check
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -34,7 +34,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Homebrew and initialize brewall
         run: $GITHUB_WORKSPACE/brewall.sh
-        
+
       # Runs a set of commands using the runners shell
       - name: Run brewall to test the elapsed time
         run: $GITHUB_WORKSPACE/brewall.sh
@@ -42,11 +42,9 @@ jobs:
         run: $GITHUB_WORKSPACE/brewall.sh runtime
       - name: Print brewall version
         run: $GITHUB_WORKSPACE/brewall.sh version
-      - name: Print brewall changelog
-        run: $GITHUB_WORKSPACE/brewall.sh changelog
       - name: brewall config files delete
         run: $GITHUB_WORKSPACE/brewall.sh remove --config
-        
+
   Catalina:
     # The type of runner that the job will run on
     runs-on: macos-10.15
@@ -61,7 +59,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Homebrew and initialize brewall
         run: $GITHUB_WORKSPACE/brewall.sh
-        
+
       # Runs a set of commands using the runners shell
       - name: Run brewall to test the elapsed time
         run: $GITHUB_WORKSPACE/brewall.sh
@@ -69,8 +67,6 @@ jobs:
         run: $GITHUB_WORKSPACE/brewall.sh runtime
       - name: Print brewall version
         run: $GITHUB_WORKSPACE/brewall.sh version
-      - name: Print brewall changelog
-        run: $GITHUB_WORKSPACE/brewall.sh changelog
       - name: brewall config files delete
         run: $GITHUB_WORKSPACE/brewall.sh remove --config
-        
+
