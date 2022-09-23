@@ -7,6 +7,9 @@ export BUILD="build"
 export ERR_DETECT_BREW="brew is not installed or not detected"
 export ERR_DETECT_GIT="git is not installed or not detected"
 
+### changelog
+export ERR_SHOW_CHANGELOG="There is nothing to display because it has never received an update yet."
+
 ### remove
 export ERR_EXECUTE_UNINSTALLER="\033[31mCan't run uninstaller, Please change permission.\033[m"
 

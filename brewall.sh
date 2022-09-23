@@ -66,8 +66,11 @@ elif [ "$1" == "changelog" ]; then
         updatedRevision="$(cat $debugPath/updatedRevision.txt)"
 
         "$executePath/tools/changelog.sh" "$cntRevision" "$updatedRevision"
+        exit $?
+    else
+        echo -e "$ERR_SHOW_CHANGELOG"
+        exit 1
     fi
-    exit 0
 elif [ "$1" == "remove" ]; then
     if [ -x $executePath/tools/install.sh ]; then
         "$executePath/tools/install.sh" "uninstall" "$2"

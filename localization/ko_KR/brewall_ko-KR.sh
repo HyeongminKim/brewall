@@ -7,6 +7,9 @@ export BUILD="빌드"
 export ERR_DETECT_BREW="brew가 설치되어 있지 않거나 감지되지 않았습니다. "
 export ERR_DETECT_GIT="git이 설치되어 있지 않거나 감지되지 않았습니다. "
 
+### changelog
+export ERR_SHOW_CHANGELOG="아직 한번도 업데이트를 받은 적이 없기 때문에 표시할 내용이 없는 것 같습니다."
+
 ### remove
 export ERR_EXECUTE_UNINSTALLER="\033[31m언인스톨러를 실행할 권한이 없습니다.\033[m"
 
