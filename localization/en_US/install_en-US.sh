@@ -35,7 +35,8 @@ export ABT_INSTALL="Installation aborted. Can not load require package, terminat
 ##### Uninstall #####
 export CONF_DIR_RMDIR="brewall config folder deleted. "
 export LOG_DIR_RMDIR="brewall log folder deleted. "
-export PACK_UNINSTALL="Brew has been removed. Delete the remaining directories as displayed on the screen. "
+export PACK_UNINSTALL_SUCCEED="\033[34mBrew successfully uninstalled!\033[m"
+export PACK_UNINSTALL_FAILED="\033[33mBrew partially uninstalled (but there were some steps failed).\nYou may wish to remove them yourself."
 
 
 ##### HomeBrew #####

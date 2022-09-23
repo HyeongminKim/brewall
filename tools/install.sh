@@ -37,8 +37,8 @@ if [ "$1" == "install" ]; then
     if [ $? != 0 ]; then
         checkVersion
         curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
-        echo -en "$ACT_KEY"
         if [ "$IS_DEBUG" != "TRUE" ]; then
+            echo -en "$ACT_KEY"
             read n
             if [ "$n" == "N" -o "$n" == "n" ]; then
                 echo "$DIS_KEY"
@@ -83,12 +83,12 @@ if [ "$1" == "install" ]; then
         if [ $(sw_vers -productVersion) == 10.[45].* ]; then
             echo ""
             curl -fsSkL https://raw.githubusercontent.com/mistydemeo/tigerbrew/master/LICENSE.txt
-            echo -e "$TIGER_INSTALL_GUIDE"
+            echo -e "$TIGER_INSTALL_TITLE"
             echo -e "$TIGER_INSTALL_INFO_1"
             echo "$TIGER_INSTALL_INFO_2"
             echo "$TIGER_INSTALL_INFO_3"
-            echo -n "$TIGER_INSTALL_CHK"
             if [ "$IS_DEBUG" != "TRUE" ]; then
+                echo -n "$TIGER_INSTALL_CHK"
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
                     echo "$ABT_INSTALL"
@@ -103,8 +103,8 @@ if [ "$1" == "install" ]; then
             echo -e "$HOME_INSTALL_INFO_1"
             echo "$HOME_INSTALL_INFO_2"
             echo "$HOME_INSTALL_INFO_3"
-            echo -n "$HOME_INSTALL_CHK"
             if [ "$IS_DEBUG" != "TRUE" ]; then
+                echo -n "$HOME_INSTALL_CHK"
                 read n
                 if [ "$n" == "n" -o "$n" == "N" ]; then
                     echo "$ABT_INSTALL"
@@ -112,24 +112,27 @@ if [ "$1" == "install" ]; then
                 fi
             fi
             if [ "$(uname -m)" == "arm64" ]; then
-                echo -n "$HOME_INSTALL_ARM"
                 if [ "$IS_DEBUG" != "TRUE" ]; then
+                    echo -n "$HOME_INSTALL_ARM"
                     read n
                     if [ "$n" == "n" -o "$n" == "N" ]; then
                         arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                        exit $?
                     else
                         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                        exit $?
                     fi
                 fi
             else
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+                exit $?
             fi
         fi
     fi
 elif [ "$1" == "uninstall" ]; then
     function removeConfig() {
         ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
-        if [ $? == 0 ]; then 
+        if [ $? == 0 ]; then
             rm -rf ~/Library/Application\ Support/com.greengecko.brewall
             echo "$CONF_DIR_RMDIR"
         fi
@@ -143,13 +146,20 @@ elif [ "$1" == "uninstall" ]; then
         if [ "$(uname -m)" == "arm64" ]; then
             if [ "$(which brew)" == "/usr/local/bin/brew" ]; then
                 arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+                removeResult=$?
             else
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+                removeResult=$?
             fi
         else
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+            removeResult=$?
         fi
-        echo "$PACK_UNINSTALL"
+        if [ $removeResult == 0 ]; then
+            echo "$PACK_UNINSTALL_SUCCEED"
+        else
+            echo "$PACK_UNINSTALL_FAILED"
+        fi
     }
 
     if [ "$2" == "--config" ]; then

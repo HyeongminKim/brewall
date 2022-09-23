@@ -35,7 +35,8 @@ export ABT_INSTALL="설취를 취소하였습니다. 필수 패키지를 로드�
 ##### Uninstall #####
 export CONF_DIR_RMDIR="brewall 설정 폴더를 삭제하였습니다. "
 export LOG_DIR_RMDIR="brewall 로그 폴더를 삭제하였습니다. "
-export PACK_UNINSTALL="Brew가 제거되었습니다. 화면에 표시된 대로 남아있는 디렉토리를 마저 삭제하여 주십시오. "
+export PACK_UNINSTALL_SUCCEED="\033[34mBrew가 성공적으로 제거되었습니다!\033[m"
+export PACK_UNINSTALL_FAILED="\033[33mBrew가 제거되었지만, 일부 파일이 삭제되지 않았을 수 있습니다. \n삭제되지 못한 파일은 화면에 표시되어 있으니 참고하여 삭제하시기 바랍니다."
 
 
 ##### HomeBrew #####
