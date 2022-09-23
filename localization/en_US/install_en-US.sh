@@ -54,7 +54,8 @@ export HOME_INSTALL_INFO_3="By installing, you are deemed to have accepted the l
 export HOME_INSTALL_CHK="Install Homebrew now? (Y/n) > "
 
 ### Install Method
-export HOME_INSTALL_ARM="Would you like to install the Native version? (Y/n) > "
+export HOME_INSTALL_ARM_NOTICE="The native version is faster than sideloading with Rosetta, and many packages already support it."
+export HOME_INSTALL_ARM_CHK="Would you like to install the Native version? (Y/n) > "
 
 
 ##### TigerBrew #####

@@ -112,8 +112,9 @@ if [ "$1" == "install" ]; then
                 fi
             fi
             if [ "$(uname -m)" == "arm64" ]; then
+                echo "$HOME_INSTALL_ARM_NOTICE"
                 if [ "$IS_DEBUG" != "TRUE" ]; then
-                    echo -n "$HOME_INSTALL_ARM"
+                    echo -n "$HOME_INSTALL_ARM_CHK"
                     read n
                     if [ "$n" == "n" -o "$n" == "N" ]; then
                         arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"

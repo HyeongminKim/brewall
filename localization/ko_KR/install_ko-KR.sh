@@ -54,7 +54,8 @@ export HOME_INSTALL_INFO_3="설치할 경우 라이선스에 동의한 것으로
 export HOME_INSTALL_CHK="설치하시겠습니까? (Y/n) > "
 
 ### Install Method
-export HOME_INSTALL_ARM="Native 버전으로 설치하시겠습니까? (Y/n) > "
+export HOME_INSTALL_ARM_NOTICE="Native 버전은 로제타로 사이드 로드하는 것보다 빠르고 이미 많은 패키지들이 지원하고 있습니다. "
+export HOME_INSTALL_ARM_CHK="Native 버전으로 설치하시겠습니까? (Y/n) > "
 
 
 ##### TigerBrew #####
