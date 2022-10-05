@@ -32,6 +32,7 @@ elif [ "$simpleLANG" == "en_US" ]; then
     English
 else
     echo -e "\033[33mWarning\033[m: $LANG is not supported at this time."
+    echo "If you are proficient in $simpleLANG, please contribute to localization."
     echo "The default language will be English."
     English
 fi
