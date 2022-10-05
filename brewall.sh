@@ -72,6 +72,20 @@ elif [ "$1" == "changelog" ]; then
         echo -e "$ERR_SHOW_CHANGELOG"
         exit 1
     fi
+elif [ "$1" == "status" ]; then
+    if [ -r $debugPath/brew_update_debug.log ]; then
+        cat $debugPath/brew_update_debug.log 2> /dev/null
+    fi
+    if [ -r $debugPath/brew_upgrade_debug.log ]; then
+        cat $debugPath/brew_upgrade_debug.log 2> /dev/null
+    fi
+    if [ -r $debugPath/brew_cleanup_debug.log ]; then
+        cat $debugPath/brew_cleanup_debug.log 2> /dev/null
+    fi
+    if [ -r $debugPath/brew_doctor_debug.log ]; then
+        cat $debugPath/brew_doctor_debug.log 2> /dev/null
+    fi
+    exit 0
 elif [ "$1" == "remove" ]; then
     if [ -x $executePath/tools/install.sh ]; then
         "$executePath/tools/install.sh" "uninstall" "$2"
