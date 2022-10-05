@@ -295,6 +295,10 @@ fi
 if [ "$?" != "0" ]; then
     doctor=true
     cat $debugPath/brew_doctor_debug.log
+    grep -r 'Error' $debugPath/brew_doctor_debug &> /dev/null
+    if [ "$?" != "0" ]; then
+        doctor=neutral
+    fi
 else
     rm $debugPath/brew_doctor_debug.log
 fi
