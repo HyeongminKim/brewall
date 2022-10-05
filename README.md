@@ -33,9 +33,10 @@
     xcode-select --install
     ```
 ### Usage: brewall.sh \[command\] \[option\]
-- version: Print this script version and environment version. 
-- runtime: Print previous brewall launch time. 
+- version: Print this script version and environment version.
+- runtime: Print previous brewall launch time.
 - changelog: View update changes
+- status: Prints a log of problems encountered when updating brew.
 - remove: brew package manager uninstall.
     - --config: brewall config remove.
     - --purge: brew package manager uninstall and brewall config remove.
@@ -53,7 +54,7 @@
 |tools/changelog.sh|A script that prints out changes according to the format when the update is successful.|
 |tools/extension.sh|Allows the user to write additional shell scripts, which is optional. ([example file](https://raw.githubusercontent.com/HyeongminKim/ShellScript/master/Operating%20System/macOS/Private/extension))|
 
-### Localization 
+### Localization
 - [Show current support languages](https://github.com/HyeongminKim/brewall/tree/nightly/localization)
 - Localizing new languages
   - Create a folder with the locale code name inside the localization folder and start localization.
