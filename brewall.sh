@@ -39,7 +39,7 @@ fi
 
 if [ "$1" == "version" ]; then
     echo -e "brewall ($GIT_REVISION $(git rev-parse --short HEAD), $LAST_COMMIT $(git log -1 --date=format:"%Y-%m-%d" --format="%ad"), $(git branch | sed '/* /!d'| sed 's/* //g') $BUILD)"
-    echo -e "Copyright (c) 2020-2022 Hyeongmin Kim\n"
+    echo -e "Copyright (c) 2020-2023 Hyeongmin Kim\n"
     bash --version
     echo ""
     which brew > /dev/null 2>&1
