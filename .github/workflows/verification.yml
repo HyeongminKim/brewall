@@ -20,14 +20,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  Big_Sur:
+  macOS:
     # The type of runner that the job will run on
     runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         env:
           IS_DEBUG: TRUE
 
@@ -44,29 +44,3 @@ jobs:
         run: $GITHUB_WORKSPACE/brewall.sh version
       - name: brewall config files delete
         run: $GITHUB_WORKSPACE/brewall.sh remove --config
-
-  Catalina:
-    # The type of runner that the job will run on
-    runs-on: macos-10.15
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        env:
-          IS_DEBUG: TRUE
-
-      # Runs a single command using the runners shell
-      - name: Install Homebrew and initialize brewall
-        run: $GITHUB_WORKSPACE/brewall.sh
-
-      # Runs a set of commands using the runners shell
-      - name: Run brewall to test the elapsed time
-        run: $GITHUB_WORKSPACE/brewall.sh
-      - name: Print brewall runtime
-        run: $GITHUB_WORKSPACE/brewall.sh runtime
-      - name: Print brewall version
-        run: $GITHUB_WORKSPACE/brewall.sh version
-      - name: brewall config files delete
-        run: $GITHUB_WORKSPACE/brewall.sh remove --config
-
