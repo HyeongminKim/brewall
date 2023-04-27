@@ -8,7 +8,7 @@ else
     updatedCommit="$(git rev-parse HEAD)"
 fi
 executePath=$(echo $0 | sed "s/\/tools\/changelog.sh//g")
-cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
+cntBranch=$(git branch --show-current)
 releasePath=~/Library/Logs/Homebrew
 
 cd $executePath
@@ -46,7 +46,7 @@ if ! [ -z "$(git log -1 --grep="DELETE" --no-merges --pretty=format:"%h" $update
     echo "" >> $releasePath/releasenote.txt
 fi
 
-if [ "$(git branch | sed '/* /!d'| sed 's/* //g')" == "nightly" ]; then
+if [ "$cntBranch" == "nightly" ]; then
     if ! [ -z "$(git log -1 --grep="TEST" --no-merges --pretty=format:"%h" $updatedCommit...$beforeCommit)" ]; then
         echo -e "$TEST_TITLE" >> $releasePath/releasenote.txt
         releaseCommitFormatter "TEST"

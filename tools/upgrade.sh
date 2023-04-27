@@ -3,7 +3,7 @@
 last_commit=$(git rev-parse HEAD)
 last_version=$(git rev-parse --short HEAD)
 executePath=$(echo $0 | sed "s/\/tools\/upgrade.sh//g")
-cntBranch=$(git branch | sed '/* /!d'| sed 's/* //g')
+cntBranch=$(git branch --show-current)
 dirCreated=false
 
 cd $executePath
