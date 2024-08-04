@@ -28,7 +28,7 @@ function Korean() {
 
 if [ "$simpleLANG" == "ko_KR" ]; then
     Korean
-elif [ "$simpleLANG" == "en_US" ]; then
+elif [ x$simpleLANG == x -o "$simpleLANG" == "en_US" ]; then
     English
 else
     echo -e "\033[33mWarning\033[m: $LANG is not supported at this time."
