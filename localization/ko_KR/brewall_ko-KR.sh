@@ -42,6 +42,7 @@ export ERR_CHK_DPY="\033[31m의존성 패키지를 검증할 수 없기 때문�
 ##### Logging Current Time #####
 export PREV_TIME="[33m이전 시간: $(date)[0m "
 export START_TIME="\033[32m시작 시간: $(date)\033[m"
+export CNT_TIME="\033[32m현재 시간: $(date)\033[m"
 
 ##### Auto Update #####
 export ERR_UPDATE="\033[31m자동 업데이트 도중 에러가 발생하였습니다. 수동으로 진행하여 주세요\033[m"

@@ -42,6 +42,7 @@ export ERR_CHK_DPY="\033[31mExited because dependency package couldn't be verifi
 ##### Logging Current Time #####
 export PREV_TIME="[33m Previous time: $(date)[0m "
 export START_TIME="\033[32mInitiated time: $(date)\033[m"
+export CNT_TIME="\033[32m  Current time: $(date)\033[m"
 
 ##### Auto Update #####
 export ERR_UPDATE="\033[31mAn error occurred during automatic update. By going manually\033[m"

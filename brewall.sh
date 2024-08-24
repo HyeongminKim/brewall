@@ -59,6 +59,7 @@ if [ "$1" == "version" ]; then
 elif [ "$1" == "runtime" ]; then
     if [ -r $debugPath/brewall_initiated.log ]; then
         cat $debugPath/brewall_initiated.log 2> /dev/null
+        echo -e "$CNT_TIME"
     fi
     exit 0
 elif [ "$1" == "changelog" ]; then
