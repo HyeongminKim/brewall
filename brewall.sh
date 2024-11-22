@@ -163,7 +163,9 @@ function extensionVerification() {
     while true; do
         echo -n "$CHECK_OPERATION"
         read input
-        if [ "$input" == "y" -o "$input" == "Y" ]; then
+        if [ x"$input" == x ]; then
+            continue
+        elif [ "$input" == "y" -o "$input" == "Y" ]; then
             shasum -a 256 $executePath/tools/extension.sh > ~/Library/Application\ Support/com.greengecko.brewall/extension.csm
             cp $executePath/tools/extension.sh ~/Library/Application\ Support/com.greengecko.brewall/extension.sh.bak
             "$executePath/tools/extension.sh"
