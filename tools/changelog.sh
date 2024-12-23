@@ -14,7 +14,7 @@ releasePath=~/Library/Logs/Homebrew
 cd $executePath
 
 function releaseCommitFormatter() {
-    git log --stat --color --grep="$1" --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updatedCommit...$beforeCommit >> $releasePath/releasenote.txt
+    git log --stat --color --grep="$1" --no-merges --pretty=format:"%C(magenta)%h%Creset - %C(cyan)%an%Creset [%C(red)%ar%Creset]: %C(green)%s%Creset" $updatedCommit...$beforeCommit | sed "s/\[$1\] //" >> $releasePath/releasenote.txt
 }
 
 if [ "$beforeCommit" == "$updatedCommit" ]; then
