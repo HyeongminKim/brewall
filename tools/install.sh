@@ -36,7 +36,7 @@ if [ "$1" == "install" ]; then
     ls ~/Library/Application\ Support/com.greengecko.brewall 2>/dev/null | grep initializationed > /dev/null 2>&1
     if [ $? != 0 ]; then
         checkVersion
-        curl -fsSkL https://raw.githubusercontent.com/HyeongminKim/brewall/master/LICENSE
+        curl -fsSkL https://raw.githubusercontent.com/unstable-code/brewall/master/LICENSE
         if [ "$IS_DEBUG" != "TRUE" ]; then
             echo -en "$ACT_KEY"
             read n

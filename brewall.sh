@@ -97,9 +97,9 @@ elif [ "$1" == "remove" ]; then
 elif [ x$1 == x ]; then
     echo "" > /dev/null 2>&1
 elif [ "$1" == "help" ]; then
-    open https://github.com/HyeongminKim/brewall\#usage-brewallsh-command-option 2> /dev/null
+    open https://github.com/unstable-code/brewall\#usage-brewallsh-command-option 2> /dev/null
     if [ $? != 0 ]; then
-        echo "URL: https://github.com/HyeongminKim/brewall#usage-brewallsh-command-option"
+        echo "URL: https://github.com/unstable-code/brewall#usage-brewallsh-command-option"
     fi
     echo "$SHOW_CMD_USAGE"
     exit 0
@@ -311,7 +311,7 @@ if [ -x $executePath/tools/upgrade.sh ]; then
     "$executePath/tools/upgrade.sh" "$executePath"
 else
     echo -e "$ERR_UPDATE"
-    open https://github.com/HyeongminKim/brewall
+    open https://github.com/unstable-code/brewall
 fi
 if [ "$update" = true -o "$upgrade" = true -o "$cleanup" = true -o "$doctor" = true ]; then
     logFiles=$(ls $debugPath |grep brew_ |grep -c debug.log)
